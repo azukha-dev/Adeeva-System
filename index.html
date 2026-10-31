@@ -2,38 +2,43 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#FFFFFF">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>ADEEVA System</title>
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="theme-color" content="#FFFFFF">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+      <link rel="icon" href="favicon.ico" sizes="any">
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+      <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#FFFFFF">
+    <script src="https://cdn.tailwindcss.com"></script>    
     <style>
         :root {
             --ad-dark:    #FFFFFF;
-            --ad-dark2:   #F5F5F5;
-            --ad-dark3:   #EEEEEE;
-            --ad-charcoal:#E0E0E0;
+            --ad-dark2:   #F7F6F2;
+            --ad-dark3:   rgba(255,255,255,0.90);
+            --ad-charcoal:#E8E6DF;
             --ad-gold:    #8A5E08;
             --ad-gold2:   #9A6E10;
             --ad-gold3:   #C8960C;
             --ad-silver:  #333333;
             --ad-silver2: #222222;
-            --ad-muted:   #555555;
-            --ad-border:  rgba(180,140,60,0.35);
+            --ad-muted:   #6B6657;
+            --ad-ink:     #17140D;
+            --ad-border:  rgba(180,140,60,0.30);
             --ad-border2: rgba(180,140,60,0.15);
+            --ad-ext:     #4A80E0;
+            --ad-ext-border: rgba(74,128,224,0.30);
         }
         * { font-family: 'Outfit', sans-serif; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-size: 15px; }
         .font-display { font-family: 'Cinzel', serif; }
-        body {
-    background-color: #FFFFFF;
-    overflow-x: hidden;
-}
+        html { min-height:100%; background:#FFFFFF; -webkit-text-size-adjust:100%; }
+        body { background-color:#FFFFFF; overflow-x:hidden; margin:0; min-height:100vh; min-height:100dvh; }
+        #mainApp, #loginPage { min-height:100vh; min-height:100dvh; }
+        .min-h-screen { min-height:100vh !important; min-height:100dvh !important; }
+        [id^="modal"] { -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); }
+        .rounded-2xl[style*="var(--ad-dark3)"], .rounded-xl[style*="var(--ad-dark3)"] { box-shadow:0 1px 2px rgba(20,16,4,.04), 0 10px 22px -14px rgba(20,16,4,.22); }
 #bgPattern {
     display: none;
     position: fixed;
@@ -67,26 +72,105 @@
         .stagger-item { opacity:0;transform:translateY(10px);animation:staggerIn 0.3s ease forwards; }
         @keyframes staggerIn { to{opacity:1;transform:translateY(0)} }
 
-        .btn-primary { background:linear-gradient(135deg,var(--ad-gold) 0%,var(--ad-gold2) 100%);color:var(--ad-dark);border-radius:12px;padding:14px;font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;transition:all 0.2s;display:block;width:100%;text-align:center;border:none;cursor:pointer; }
-        .btn-primary:active { transform:scale(0.97);opacity:.88; }
-        .btn-primary:disabled { opacity:.5; }
+        /* ═══ TOMBOL ═══ */
+        .btn-primary { background:linear-gradient(135deg,#B8860B 0%,var(--ad-gold) 55%,#6F4A04 100%);color:#fff;border-radius:16px;padding:15px;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:transform .15s,box-shadow .2s,opacity .2s;display:block;width:100%;text-align:center;border:none;cursor:pointer;box-shadow:0 10px 22px -10px rgba(138,94,8,.65),inset 0 1px 0 rgba(255,255,255,.25); }
+        .btn-primary:active { transform:scale(.97);opacity:.9; }
+        .btn-primary:disabled { opacity:.55;box-shadow:none; }
+        .btn-mini { display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--ad-gold3),var(--ad-gold));color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;box-shadow:0 8px 16px -10px rgba(138,94,8,.8); }
+        .btn-mini:active { transform:scale(.95); }
 
-        .floating-action { position:fixed;bottom:86px;right:20px;width:54px;height:54px;background:linear-gradient(135deg,var(--ad-gold),var(--ad-gold2));border-radius:50%;display:flex;justify-content:center;align-items:center;color:var(--ad-dark);box-shadow:0 6px 24px rgba(201,168,76,0.35);z-index:100;border:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s; }
-        .floating-action:active { transform:scale(0.90); }
+        .floating-action { position:fixed;right:18px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:56px;height:56px;background:linear-gradient(135deg,var(--ad-gold3),var(--ad-gold));border-radius:20px;display:flex;justify-content:center;align-items:center;color:#fff;box-shadow:0 14px 28px -10px rgba(138,94,8,.7);z-index:45;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s; }
+        .floating-action:active { transform:scale(.9); }
 
-        .nav-bar { background:#F5F5F5;border-top:1px solid rgba(180,140,60,0.3); }
-        .nav-btn { display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;background:none;border:none;cursor:pointer;transition:color 0.2s,transform 0.15s;position:relative; }
+        /* ═══ NAVIGASI BAWAH (menempel di dasar layar, tanpa ruang kosong) ═══ */
+        .nav-bar { position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;align-items:stretch;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border-top:1px solid rgba(180,140,60,.22);box-shadow:0 -12px 30px -20px rgba(40,28,4,.4); }
+        .nav-btn { flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;background:none;border:none;cursor:pointer;position:relative;color:var(--ad-muted);transition:color .2s,transform .15s; }
+        .nav-btn .nav-ico { width:52px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s; }
+        .nav-btn .nav-ico i { font-size:20px; }
+        .nav-btn p { font-size:11px;font-weight:600;letter-spacing:.03em; }
         .nav-btn.active { color:var(--ad-gold); }
-        .nav-btn:not(.active) { color:var(--ad-muted); }
-        .nav-btn.active::after { content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20px;height:2px;border-radius:1px;background:var(--ad-gold); }
-        .nav-btn:active { transform:scale(0.88); }
+        .nav-btn.active .nav-ico { background:rgba(201,168,76,.22);transform:translateY(-1px); }
+        .nav-btn.active p { font-weight:700; }
+        .nav-btn:active { transform:scale(.92); }
 
-        .app-header { background:#F5F5F5;border-bottom:1px solid var(--ad-border);padding:14px 20px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50; }
+        /* ═══ HEADER ═══ */
+        .app-header { position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 18px 12px;background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(180,140,60,.2); }
+        .hdr-left { display:flex;align-items:center;gap:10px;min-width:0; }
+        .hdr-eyebrow { font-size:10px;color:#7A5500;letter-spacing:.14em;text-transform:uppercase;font-weight:700; }
+        .hdr-title { font-weight:700;font-size:18px;color:var(--ad-ink);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+        .hdr-icon { width:38px;height:38px;border-radius:12px;border:1px solid var(--ad-border);background:rgba(201,168,76,.10);color:var(--ad-gold);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0; }
+        .hdr-icon i { font-size:16px; }
+        .hdr-avatar { width:42px;height:42px;border-radius:14px;border:1px solid var(--ad-border);background:linear-gradient(135deg,rgba(229,184,116,.38),rgba(201,168,76,.12));color:var(--ad-gold);font-weight:700;font-size:14px;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0; }
 
-        .gantt-outer { background:#F5F5F5;border-radius:16px;overflow:hidden;border:1px solid var(--ad-border); }
+        /* ═══ KARTU & JUDUL ═══ */
+        .glass-card { background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(180,140,60,.2);border-radius:22px;padding:16px;box-shadow:0 10px 24px -16px rgba(40,28,4,.35); }
+        .sec-title { font-family:'Cinzel',serif;font-weight:700;color:#7A5500;font-size:12px;letter-spacing:.12em;text-transform:uppercase; }
+        .seg-bar { height:8px;border-radius:99px;background:rgba(0,0,0,.06);overflow:hidden; }
+        .seg-bar span { display:block;height:100%;border-radius:99px; }
+        .alert-card { display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,#fff7e6,#fdecc8);border:1px solid rgba(200,150,12,.35); }
+        .alert-ico { width:38px;height:38px;border-radius:12px;background:rgba(200,150,12,.18);color:#8A5E08;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+        .alert-ico i { font-size:18px; }
+
+        /* ═══ DASHBOARD: HERO, KPI, OKUPANSI ═══ */
+        .hero-card { border-radius:26px;padding:18px;background:linear-gradient(145deg,#1d1810 0%,#2b2110 60%,#3a2a0c 100%);color:#e5b874;box-shadow:0 18px 36px -18px rgba(30,20,0,.7);border:1px solid rgba(229,184,116,.25); }
+        .hero-top { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px; }
+        .hero-eyebrow { font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(229,184,116,.6);font-weight:700; }
+        .hero-date { font-family:'Cinzel',serif;font-size:15px;font-weight:700;margin-top:3px;color:#f3d9a4; }
+        .hero-chip { display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(229,184,116,.14);color:#e5b874;letter-spacing:.08em; }
+        .hero-chip::before { content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25);animation:ping 2s infinite; }
+        .hero-body { display:flex;align-items:center;gap:18px; }
+        .ring-wrap { position:relative;width:128px;height:128px;flex-shrink:0; }
+        .ring-svg { width:100%;height:100%; }
+        .ring-center { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center; }
+        .ring-center p { font-size:28px;font-weight:700;color:#f3d9a4;line-height:1; }
+        .ring-center span { font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(229,184,116,.55);margin-top:4px; }
+        .hero-legend { flex:1;min-width:0;display:flex;flex-direction:column;gap:9px; }
+        .lg-row { display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(243,217,164,.75); }
+        .lg-row b { margin-left:auto;font-size:16px;color:#f3d9a4; }
+        .lg-dot { width:9px;height:9px;border-radius:3px;flex-shrink:0; }
+        .lg-total { font-size:11px;color:rgba(229,184,116,.5);padding-top:8px;border-top:1px solid rgba(229,184,116,.14); }
+        .lg-total b { color:#e5b874; }
+
+        .stat-card { background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:20px;padding:14px 16px;border:1px solid rgba(180,140,60,.22);cursor:pointer;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s;box-shadow:0 10px 22px -16px rgba(40,28,4,.4); }
+        .stat-card::before { content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,var(--ad-gold3),var(--ad-gold)); }
+        .stat-card.external::before { background:linear-gradient(180deg,#6FA0FF,#4A80E0); }
+        .stat-card:active { transform:scale(.96); }
+        .kpi-top { display:flex;align-items:center;gap:8px; }
+        .kpi-ico { width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.16);color:var(--ad-gold); }
+        .kpi-ico i { font-size:15px; }
+        .kpi-ico.ext { background:rgba(74,128,224,.14);color:#4A80E0; }
+        .kpi-lbl { font-size:11px;font-weight:600;color:var(--ad-muted);text-transform:uppercase;letter-spacing:.06em; }
+        .kpi-num { font-size:34px;font-weight:700;color:var(--ad-ink);line-height:1;margin-top:10px; }
+        .kpi-link { font-size:11px;font-weight:600;color:var(--ad-gold);margin-top:8px;display:flex;align-items:center;gap:3px; }
+        .kpi-link i { font-size:10px; }
+
+        .occ-bars { display:flex;gap:6px;align-items:stretch;height:112px; }
+        .occ-col { flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0; }
+        .occ-track { flex:1;width:100%;max-width:30px;border-radius:9px;background:rgba(0,0,0,.05);display:flex;align-items:flex-end;overflow:hidden; }
+        .occ-fill { width:100%;border-radius:9px;background:linear-gradient(180deg,#f2dcae,#d9b45f);transition:height .7s cubic-bezier(.22,1,.36,1); }
+        .occ-fill.today { background:linear-gradient(180deg,#e5b874,#8A5E08); }
+        .occ-val { font-size:11px;font-weight:700;color:var(--ad-ink); }
+        .occ-lbl { font-size:9px;color:var(--ad-muted);white-space:nowrap; }
+        .occ-lbl.today { color:var(--ad-gold);font-weight:700; }
+
+        /* ═══ MENU OPERASIONAL & FINANCE (kartu transparan) ═══ */
+        .hub-head { margin-bottom:14px;padding:0 2px; }
+        .hub-head h3 { font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--ad-ink);letter-spacing:.03em; }
+        .hub-head p { font-size:12px;color:var(--ad-muted);margin-top:2px; }
+        .hub-panel { position:relative;border-radius:28px;padding:16px 12px;background:linear-gradient(160deg,rgba(229,184,116,.24),rgba(255,255,255,.35) 55%,rgba(201,168,76,.12));border:1px solid rgba(180,140,60,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.7); }
+        .hub-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
+        .hub-card { appearance:none;-webkit-appearance:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;aspect-ratio:1/1.1;padding:10px 6px;background:rgba(255,255,255,.40);-webkit-backdrop-filter:blur(12px) saturate(1.3);backdrop-filter:blur(12px) saturate(1.3);border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 12px 24px -14px rgba(60,40,4,.5),inset 0 1px 0 rgba(255,255,255,.85);cursor:pointer;transition:transform .18s,background .2s; }
+        .hub-card:active { transform:scale(.94);background:rgba(255,255,255,.65); }
+        .hub-ico { width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#f0cc8a,#C8960C);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 18px -8px rgba(138,94,8,.85); }
+        .hub-ico i { font-size:23px; }
+        .hub-title { font-size:12px;font-weight:700;color:var(--ad-ink); }
+        .hub-sub { font-size:10px;color:var(--ad-muted);line-height:1.2; }
+
+        /* ═══ GANTT ═══ */
+        .gantt-outer { background:#1A1A1A;border-radius:22px;overflow:hidden;border:1px solid var(--ad-border);box-shadow:0 14px 28px -18px rgba(0,0,0,.6); }
         .gantt-scroll { overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin; }
         .gantt-scroll::-webkit-scrollbar { height:3px; }
-        .gantt-scroll::-webkit-scrollbar-thumb { background:#CCCCCC;border-radius:2px; }
+        .gantt-scroll::-webkit-scrollbar-thumb { background:#555;border-radius:2px; }
         .gantt-table { border-collapse:collapse;width:100%; }
         .gantt-table th,.gantt-table td { border:none;background:#1A1A1A; }
         .g-corner { position:sticky;left:0;z-index:5;background:#1A1A1A;padding:10px;min-width:90px;max-width:90px;font-size:15px;font-weight:700;color:#e5b874;text-transform:uppercase;letter-spacing:.08em;border-right:1px solid rgba(255,255,255,0.06);font-family:'Cinzel',serif; }
@@ -99,71 +183,69 @@
         .g-cell { height:36px;padding:6px 1px;border-bottom:1px solid rgba(255,255,255,0.04);background:#1A1A1A;position:relative; }
         .g-cell.today-col { background:#211d0f !important; }
         .g-cell.today-col::before { content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:100%;background:rgba(201,168,76,0.18); }
-        .g-bar { height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 6px;cursor:pointer;font-size:15px;font-weight:700;white-space:nowrap;letter-spacing:.03em;transition:filter .15s,transform .1s;box-shadow:0 2px 6px rgba(0,0,0,0.5); }
+        .g-bar { height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 6px;cursor:pointer;font-size:15px;font-weight:700;white-space:nowrap;letter-spacing:.03em;transition:filter .15s,transform .1s;box-shadow:0 2px 6px rgba(0,0,0,0.5); }
         .g-bar:active { transform:scaleX(0.97); }
         .g-bar:hover { filter:brightness(1.18); }
         .c0{background:#e5b874;color:#1A1A1A}.c1{background:#8B6914;color:#F0D898}.c2{background:#3A3A3A;color:#f0cc8a}.c3{background:#5A4010;color:#F0D898}.c4{background:#2E2E2E;color:#f0cc8a}.c5{background:#705015;color:#F7F3EC}.c6{background:#252525;color:#e5b874}.c7{background:#A07830;color:#1A1A1A}.c8{background:#1A1A1A;color:#e5b874;border:1px solid rgba(229,184,116,0.25)}.c9{background:#6B5020;color:#F0D898}.c10{background:#f0cc8a;color:#1A1A1A}.c11{background:#4a3810;color:#F0D898}
         .dot0{background:#9A6E10}.dot1{background:#6B4F0A}.dot2{background:#3A3A3A}.dot3{background:#5A4010}.dot4{background:#2E2E2E}.dot5{background:#705015}.dot6{background:#252525}.dot7{background:#7A5C0A}.dot8{background:#1A1A1A}.dot9{background:#6B5020}.dot10{background:#B8860B}.dot11{background:#4a3810}
-        .gantt-filters { display:flex;gap:8px;align-items:center;padding:10px 12px 0;flex-wrap:wrap;background:#1A1A1A; }
-        .gantt-filters select { background:#2A2A2A;color:#e5b874;border:1px solid var(--ad-border);border-radius:8px;padding:5px 10px;font-size:15px;outline:none;cursor:pointer; }
+        .gantt-filters { display:flex;gap:8px;align-items:center;padding:12px 12px 0;flex-wrap:wrap;background:#1A1A1A; }
+        .gantt-filters select { background:#2A2A2A;color:#e5b874;border:1px solid var(--ad-border);border-radius:10px;padding:7px 10px;font-size:15px;outline:none;cursor:pointer; }
         .gantt-label { font-size:15px;font-weight:700;color:#e5b874; }
         .gantt-legend { display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;background:#1A1A1A;border-top:1px solid rgba(255,255,255,0.06); }
         .legend-item { display:flex;align-items:center;gap:5px;font-size:15px;font-weight:700;color:#888;padding:3px 8px;border-radius:20px;border:1px solid rgba(255,255,255,0.07); }
         .legend-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
 
-        .stat-card { background:var(--ad-dark3);border-radius:16px;padding:16px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;position:relative;overflow:hidden;transition:transform 0.18s,border-color 0.18s; }
-        .stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ad-gold),var(--ad-gold2)); }
-        .stat-card:active { transform:scale(0.96); }
-        .stat-card:hover { border-color:var(--ad-border); }
-        .stat-card.external::before { background:linear-gradient(90deg,#6FA0FF,#9DC3FF); }
+        /* ═══ FORM ═══ */
+        .form-input { width:100%;background:#F7F6F2;border:1.5px solid rgba(0,0,0,.07);border-radius:14px;padding:13px 14px;color:var(--ad-ink);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none; }
+        .form-input:focus { border-color:var(--ad-gold3);background:#fff;box-shadow:0 0 0 4px rgba(201,168,76,.16); }
+        .form-label { display:block;font-size:12px;font-weight:700;color:#8A5E08;margin-bottom:6px;letter-spacing:.07em;text-transform:uppercase; }
 
-        .form-input { width:100%;background:#F0F0F0;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:12px 14px;color:#1A1A1A;font-size:14px;outline:none;transition:border-color 0.2s;-webkit-appearance:none; }
-        .form-input:focus { border-color:var(--ad-gold); }
-        .form-label { display:block;font-size:15px;font-weight:600;color:#8A5E08;opacity:1;margin-bottom:6px;letter-spacing:.07em;text-transform:uppercase; }
+        /* ═══ MODAL ═══ */
+        .modal-sheet { background:#FFFFFF;border-radius:28px 28px 0 0;box-shadow:0 -20px 50px -20px rgba(0,0,0,.35);padding-bottom:env(safe-area-inset-bottom,0px); }
+        .modal-sheet.sheet-enter { animation:sheetUp .32s cubic-bezier(.22,1,.36,1) forwards; }
+        @keyframes sheetUp { from{transform:translateY(40px);opacity:.4}to{transform:translateY(0);opacity:1} }
+        .modal-center { background:#FFFFFF;border-radius:24px;animation:modalPop .25s cubic-bezier(.34,1.56,.64,1) forwards; }
+        @keyframes modalPop { from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1} }
+        .modal-handle { width:40px;height:4px;border-radius:2px;background:rgba(0,0,0,.14);margin:12px auto 4px; }
 
-        .modal-sheet { background:#F5F5F5;transition:transform 0.28s cubic-bezier(0.22,1,0.36,1); }
-        .modal-sheet.sheet-enter { animation:sheetUp 0.3s cubic-bezier(0.22,1,0.36,1) forwards; }
-        @keyframes sheetUp { from{transform:translateY(30px);opacity:.6}to{transform:translateY(0);opacity:1} }
-        .modal-center { background:#F5F5F5;animation:modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-        @keyframes modalPop { from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1} }
-        .modal-handle { width:36px;height:3px;border-radius:2px;background:rgba(0,0,0,0.1);margin:12px auto 4px; }
-
-        .vinfo-row { display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(0,0,0,0.05); }
+        .vinfo-row { display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.05); }
         .vinfo-row:last-child { border:none; }
-        .vinfo-label { font-size:15px;font-weight:600;color:var(--ad-muted);text-transform:uppercase;letter-spacing:.06em; }
-        .vinfo-value { font-size:15px;font-weight:700;color:var(--ad-silver2);text-align:right;max-width:60%; }
+        .vinfo-label { font-size:12px;font-weight:600;color:var(--ad-muted);text-transform:uppercase;letter-spacing:.06em; }
+        .vinfo-value { font-size:14px;font-weight:700;color:var(--ad-silver2);text-align:right;max-width:60%; }
 
-        #sigCanvas { display:block;width:100%;height:150px;border-radius:12px;border:2px dashed rgba(0,0,0,0.1);background:#F0F0F0;cursor:crosshair;touch-action:none; }
+        #sigCanvas { display:block;width:100%;height:150px;border-radius:14px;border:2px dashed rgba(0,0,0,0.12);background:#F7F6F2;cursor:crosshair;touch-action:none; }
         #sigCanvas.signed { border-color:var(--ad-gold);border-style:solid; }
 
-        .upload-box { border:2px dashed rgba(0,0,0,0.1);border-radius:12px;padding:22px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:#F0F0F0; }
-        .upload-box.has-file { border-color:var(--ad-gold);background:rgba(201,168,76,0.04); }
+        .upload-box { border:2px dashed rgba(0,0,0,0.12);border-radius:16px;padding:22px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:#F7F6F2; }
+        .upload-box.has-file { border-color:var(--ad-gold);background:rgba(201,168,76,0.06); }
 
         #lightboxOverlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;align-items:center;justify-content:center;padding:16px; }
         #lightboxOverlay.open { display:flex;animation:fadeIn .2s ease; }
         @keyframes fadeIn { from{opacity:0}to{opacity:1} }
-        #lightboxImg { max-width:100%;max-height:90vh;object-fit:contain;border-radius:12px;cursor:zoom-out;border:1px solid var(--ad-border); }
+        #lightboxImg { max-width:100%;max-height:90vh;object-fit:contain;border-radius:14px;cursor:zoom-out;border:1px solid var(--ad-border); }
 
-        .badge { font-size:15px;padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:.04em; }
-        .badge-gold { background:rgba(154,110,16,0.12);color:#7A5500;font-weight:700; }
+        /* ═══ BADGE & FILTER ═══ */
+        .badge { font-size:11px;padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.05em; }
+        .badge-gold { background:rgba(154,110,16,0.14);color:#7A5500;font-weight:700; }
         .badge-dim  { background:rgba(0,0,0,0.05);color:var(--ad-muted); }
-        .badge-blue { background:rgba(111,160,255,0.12);color:#4A80E0;font-weight:700; }
+        .badge-blue { background:rgba(111,160,255,0.14);color:#4A80E0;font-weight:700; }
         .badge-green { background:rgba(22,163,74,0.10);color:#15803d;font-weight:700; }
 
-        .filter-pill { white-space:nowrap;font-size:15px;padding:7px 16px;border-radius:20px;font-weight:600;border:none;cursor:pointer;transition:all .2s; }
-        .filter-pill.active { background:var(--ad-gold);color:var(--ad-dark); }
-        .filter-pill:not(.active) { background:rgba(0,0,0,0.05);color:var(--ad-muted); }
+        .filter-pill { white-space:nowrap;font-size:13px;padding:8px 16px;border-radius:999px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:all .2s; }
+        .filter-pill.active { background:linear-gradient(135deg,var(--ad-gold3),var(--ad-gold));color:#fff;box-shadow:0 8px 16px -10px rgba(138,94,8,.9); }
+        .filter-pill:not(.active) { background:rgba(255,255,255,.75);border-color:rgba(0,0,0,.07);color:var(--ad-muted); }
 
-        #toastNotif,#toastSuccess { position:fixed;top:0;left:0;right:0;z-index:9999;padding:12px 16px 0; }
-        .toast-inner { animation:toastDrop 0.3s cubic-bezier(0.22,1,0.36,1) forwards; }
+        #toastNotif,#toastSuccess { position:fixed;top:0;left:0;right:0;z-index:9999;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 0; }
+        .toast-inner { animation:toastDrop .3s cubic-bezier(.22,1,.36,1) forwards;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px); }
         @keyframes toastDrop { from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1} }
 
         .section-type-label { font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ad-muted);padding:0 2px;margin-bottom:8px;margin-top:4px;display:flex;align-items:center;gap:6px; }
         .section-type-label::before,.section-type-label::after { content:'';flex:1;height:1px;background:rgba(0,0,0,0.08); }
 
+        /* ═══ ONBOARDING ═══ */
         #onboarding { position:fixed;inset:0;z-index:9998;background:#FFFFFF;overflow:hidden;isolation:isolate; }
         .ob-track { display:flex;width:300%;height:100%;transition:transform 0.55s cubic-bezier(0.22,1,0.36,1); }
-        .ob-slide { width:33.333%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0 0 48px;position:relative;overflow:hidden; }
+        .ob-slide { width:33.333%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0 0 calc(48px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden; }
         .ob-illus { flex:1;display:flex;align-items:center;justify-content:center;width:100%;padding-top:80px;position:relative; }
         .ob-icon-ring { position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center; }
         .ob-icon-ring::before { content:'';position:absolute;inset:0;border-radius:50%;border:1px solid rgba(201,168,76,0.15);animation:ping 3s ease-in-out infinite; }
@@ -177,7 +259,7 @@
         .ob-dots { display:flex;justify-content:center;gap:8px;margin-bottom:24px; }
         .ob-dot { height:4px;border-radius:2px;background:rgba(0,0,0,0.12);transition:all 0.4s cubic-bezier(0.22,1,0.36,1); }
         .ob-dot.active { background:var(--ad-gold);width:28px !important; }
-        .ob-btn-next { width:100%;padding:15px;background:linear-gradient(135deg,var(--ad-gold),var(--ad-gold2));color:var(--ad-dark);border:none;border-radius:14px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:transform .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:10px; }
+        .ob-btn-next { width:100%;padding:15px;background:linear-gradient(135deg,var(--ad-gold),var(--ad-gold2));color:var(--ad-dark);border:none;border-radius:16px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:transform .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:10px; }
         .ob-btn-next:active { transform:scale(0.97);opacity:.9; }
         .ob-skip { text-align:center;margin-top:14px;font-size:12px;color:var(--ad-muted);cursor:pointer;letter-spacing:.04em; }
         .ob-line { width:40px;height:2px;background:linear-gradient(90deg,transparent,var(--ad-gold),transparent);margin:12px auto 0; }
@@ -193,7 +275,6 @@
         .hist-card:active { transform:scale(0.98); }
 
 
-
         #bgOverlay {
     display: none;
     position: fixed;
@@ -205,7 +286,87 @@
 #bgOverlay.visible {
     display: block;
 }
+            /* Paksa tampilan terang agar dropdown terbaca di dark mode */
+        :root { color-scheme: light; }
+        select, select option { color:#1A1A1A; background-color:#FFFFFF; }
+        input, textarea { color-scheme: light; }
     </style>
+<script>
+/* ═══ SVG ICON ENGINE: mengganti semua ikon fa-* menjadi SVG modern ═══ */
+(function () {
+  const I = {
+    'house':'<path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+    'arrow-right':'<path d="M5 12h14M13 6l6 6-6 6"/>',
+    'arrow-left':'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+    'arrow-up':'<path d="M12 19V5M6 11l6-6 6 6"/>',
+    'arrow-down':'<path d="M12 5v14M6 13l6 6 6-6"/>',
+    'chevron-right':'<path d="m9 6 6 6-6 6"/>',
+    'plus':'<path d="M12 5v14M5 12h14"/>',
+    'xmark':'<path d="M6 6l12 12M18 6 6 18"/>',
+    'eye':'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    'eye-slash':'<path d="M3 3l18 18"/><path d="M10.6 6.1A10 10 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.6 7.6A16.6 16.6 0 0 0 2 12s3.5 6 10 6a9.7 9.7 0 0 0 4.1-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+    'user':'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',
+    'bus':'<rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M7 17v3M17 17v3M8 14h.01M16 14h.01"/>',
+    'car':'<path d="M4 15v-3l2-5.5A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.5L20 12v3"/><rect x="3" y="12" width="18" height="6" rx="2"/><path d="M7.5 15h.01M16.5 15h.01M6 18v2M18 18v2"/>',
+    'book':'<path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M5 18a2 2 0 0 1 2-2h12"/>',
+    'book-open':'<path d="M12 6c-2-1.5-5-2-9-2v14c4 0 7 .5 9 2 2-1.5 5-2 9-2V4c-4 0-7 .5-9 2zM12 6v14"/>',
+    'clipboard-list':'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+    'clipboard-check':'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 13l2 2 4-4"/>',
+    'coins':'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
+    'briefcase':'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+    'wrench':'<path d="M14.5 6a4 4 0 0 0 4.9 4.9l-8.6 8.6a2.1 2.1 0 0 1-3-3l8.6-8.6A4 4 0 0 0 14.5 6z"/>',
+    'triangle-exclamation':'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17.5v.01"/>',
+    'calendar-days':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
+    'calendar':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    'calendar-xmark':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M10 13l4 4M14 13l-4 4"/>',
+    'calendar-plus':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/>',
+    'spinner':'<path d="M12 3a9 9 0 1 0 9 9"/>',
+    'folder-open':'<path d="M3 19V6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v2"/><path d="M3 19l2.5-8.5a1 1 0 0 1 1-.7H22l-2.6 8.6a1 1 0 0 1-1 .7H3z"/>',
+    'clock-rotate-left':'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+    'money-bill-wave':'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/>',
+    'stopwatch':'<circle cx="12" cy="14" r="7"/><path d="M12 14l3-3M9 3h6M12 3v4"/>',
+    'receipt':'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
+    'file-pdf':'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 15h4M10 18h4"/>',
+    'file-lines':'<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+    'file-invoice':'<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 10h2M9 14h6M9 18h6"/>',
+    'rotate-right':'<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+    'floppy-disk':'<path d="M5 3h11l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>',
+    'circle-check':'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/>',
+    'camera':'<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/>',
+    'gauge':'<path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 14l4-5"/>',
+    'play':'<path d="M7 4l13 8-13 8z"/>',
+    'flag-checkered':'<path d="M5 21V4M5 4h13l-2 4 2 4H5"/>',
+    'image':'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/>',
+    'signature':'<path d="M3 17c3 0 4-9 6-9s0 9 3 9 2-4 4-4 1 3 5 3"/>',
+    'clock':'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    'id-badge':'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M8 17c0-2 1.8-3 4-3s4 1 4 3"/>',
+    'paper-plane':'<path d="M21 3 3 10.5l7 3 3 7z"/><path d="M10 13.5 21 3"/>',
+    'eraser':'<path d="M8 20h12M5 15l8-9a2 2 0 0 1 3 0l3 3a2 2 0 0 1 0 3l-6 6H9z"/>',
+    'bell':'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+    'search':'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+    'print':'<path d="M7 9V3h10v6M7 17H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2"/><rect x="7" y="14" width="10" height="7"/>',
+    'road':'<path d="M7 3 4 21M17 3l3 18M12 4v3M12 11v3M12 18v3"/>',
+    'wallet':'<path d="M4 7a2 2 0 0 1 2-2h11v3"/><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M16 13.5h2.5"/>',
+    'right-to-bracket':'<path d="M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5M4 12h11M11 8l4 4-4 4"/>',
+    'right-from-bracket':'<path d="M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5M9 12h11M16 8l4 4-4 4"/>',
+    'pen':'<path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
+    'pen-to-square':'<path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M18.5 3.5a2 2 0 0 1 3 3L12 16l-4 1 1-4z"/>',
+    'trash':'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+    'table-cells-large':'<rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/>'
+  };
+  const A = { 'bus-simple':'bus', 'camera-retro':'camera', 'images':'image', 'history':'clock-rotate-left', 'hand-holding-dollar':'wallet' };
+  let css = '.fa-solid,.fa-regular{display:inline-block;width:1em;height:1em;vertical-align:-.14em;flex-shrink:0;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}.fa-spin{animation:spin 1s linear infinite}';
+  const mk = function (n, d) {
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
+    return '.fa-' + n + '{--ic:url("data:image/svg+xml,' + encodeURIComponent(svg) + '")}';
+  };
+  Object.keys(I).forEach(function (k) { css += mk(k, I[k]); });
+  Object.keys(A).forEach(function (k) { css += mk(k, I[A[k]]); });
+  const s = document.createElement('style');
+  s.id = 'svgIcons'; s.textContent = css;
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 <div id="bgPattern"></div>
@@ -342,108 +503,113 @@
 
 <!-- SERVICE PAGE -->
 <!-- MAIN APP -->
-<div id="mainApp" class="hidden min-h-screen pb-20" style="background:#FFFFFF">
-    <div class="app-header motif-bg">
-        <div>
-            <p style="font-size:11px;color:#7A5500;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">Halo,</p>
-            <h2 id="userNameDisplay" class="font-display" style="font-weight:700;font-size:19px;color:#1A1A1A;letter-spacing:.04em;">User</h2>
+<div id="mainApp" class="hidden min-h-screen" style="background:#FFFFFF;padding-bottom:calc(88px + env(safe-area-inset-bottom,0px));">
+    <div class="app-header">
+        <div class="hdr-left">
+            <button id="btnBack" class="hdr-icon" style="display:none;" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+            <div style="min-width:0;">
+                <p id="hdrEyebrow" class="hdr-eyebrow">Selamat datang</p>
+                <h2 id="userNameDisplay" class="font-display hdr-title">User</h2>
+            </div>
         </div>
-        <div class="flex items-center gap-2">
-            <button onclick="openProfileDropdown()" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;background:rgba(201,168,76,0.07);border:1px solid var(--ad-border);border-radius:12px;cursor:pointer;">
-                <div style="width:28px;height:28px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;">
-                    <i class="fa-solid fa-user" style="color:var(--ad-gold);font-size:13px;"></i>
-                </div>
-                <span id="userNameShort" style="font-size:9px;font-weight:700;color:var(--ad-gold2);letter-spacing:.04em;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
-            </button>
-            
-        </div>
+        <button class="hdr-avatar" onclick="openProfileDropdown()"><span id="userNameShort">U</span></button>
     </div>
 
     <!-- DASHBOARD -->
-    <div id="pageDashboard" class="page-section active px-4 py-4 space-y-5">
-        <div id="serviceAlertContainer" class="hidden stagger-item" style="animation-delay:.05s">
-            <div class="rounded-2xl p-4 flex items-center justify-between" style="background:#EEEEEE;border:1px solid rgba(180,140,60,0.3)">
-                <div class="flex items-center gap-3">
-                    <div class="rounded-xl flex items-center justify-center flex-shrink-0" style="width:40px;height:40px;background:rgba(201,168,76,0.1)">
-                        <i class="fa-solid fa-wrench" style="color:var(--ad-gold)"></i>
-                    </div>
+    <div id="pageDashboard" class="page-section active px-4 py-4 space-y-4">
+
+        <!-- Hero + KPI + Okupansi -->
+        <div class="stagger-item space-y-4" style="animation-delay:.05s">
+            <div class="hero-card motif-bg">
+                <div class="hero-top">
                     <div>
-                        <p style="font-size:13px;font-weight:700;color:#1A1A1A;">Peringatan Service!</p>
-                        <p id="serviceDesc" style="font-size:11px;color:var(--ad-gold2);opacity:.8;margin-top:2px;"></p>
+                        <p class="hero-eyebrow">Utilisasi Armada Hari Ini</p>
+                        <p id="dashDate" class="hero-date">—</p>
+                    </div>
+                    <span class="hero-chip">LIVE</span>
+                </div>
+                <div class="hero-body">
+                    <div class="ring-wrap">
+                        <svg viewBox="0 0 100 100" class="ring-svg">
+                            <defs><linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0cc8a"/><stop offset="1" stop-color="#C8960C"/></linearGradient></defs>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="9"/>
+                            <circle id="dashRing" cx="50" cy="50" r="42" fill="none" stroke="url(#gGold)" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 264" transform="rotate(-90 50 50)" style="transition:stroke-dasharray .8s cubic-bezier(.22,1,.36,1)"/>
+                        </svg>
+                        <div class="ring-center"><p id="dashRingPct">0%</p><span>terpakai</span></div>
+                    </div>
+                    <div class="hero-legend">
+                        <div class="lg-row"><span class="lg-dot" style="background:#e5b874"></span><span>Dirental</span><b id="dashLgRented">0</b></div>
+                        <div class="lg-row"><span class="lg-dot" style="background:rgba(255,255,255,.28)"></span><span>Tersedia</span><b id="dashLgFree">0</b></div>
+                        <div class="lg-row"><span class="lg-dot" style="background:#6FA0FF"></span><span>External</span><b id="dashLgExt">0</b></div>
+                        <div class="lg-total">Total internal <b id="dashLgTotal">0</b> unit</div>
                     </div>
                 </div>
-                <button onclick="showServicePage()" style="background:rgba(201,168,76,0.12);color:var(--ad-gold2);font-size:11px;padding:6px 12px;border-radius:8px;font-weight:700;border:1px solid var(--ad-border);cursor:pointer;white-space:nowrap;">Detail <i class="fa-solid fa-chevron-right ml-1 text-[9px]"></i></button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="stat-card" onclick="showDetailModal('available','Internal')">
+                    <div class="kpi-top"><span class="kpi-ico"><i class="fa-solid fa-circle-check"></i></span><span class="kpi-lbl">Tersedia</span></div>
+                    <p id="countInternalAvailable" class="kpi-num">0</p>
+                    <p class="kpi-link">Lihat detail <i class="fa-solid fa-chevron-right"></i></p>
+                </div>
+                <div class="stat-card" onclick="showDetailModal('active','Internal')">
+                    <div class="kpi-top"><span class="kpi-ico"><i class="fa-solid fa-bus"></i></span><span class="kpi-lbl">Sedang Rental</span></div>
+                    <p id="countInternalRented" class="kpi-num">0</p>
+                    <p class="kpi-link">Lihat detail <i class="fa-solid fa-chevron-right"></i></p>
+                </div>
+            </div>
+
+            <div id="clusterExternal" style="display:none;">
+                <div class="stat-card external" onclick="showDetailModal('active','External')">
+                    <div class="kpi-top">
+                        <span class="kpi-ico ext"><i class="fa-solid fa-car"></i></span><span class="kpi-lbl">External Sedang Rental</span>
+                        <span id="extClusterBadge" class="badge badge-blue" style="margin-left:auto;"></span>
+                    </div>
+                    <p id="countExternalRented" class="kpi-num">0</p>
+                    <p class="kpi-link" style="color:#4A80E0;">Lihat detail <i class="fa-solid fa-chevron-right"></i></p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="flex justify-between items-center mb-3">
+                    <p class="sec-title">Okupansi 7 Hari</p>
+                    <span style="font-size:10px;color:var(--ad-muted);">unit internal dirental</span>
+                </div>
+                <div id="dashOcc" class="occ-bars"></div>
             </div>
         </div>
 
         <div id="expiryAlertContainer" class="hidden stagger-item" style="animation-delay:.08s">
-            <div class="rounded-2xl p-4 flex items-center gap-3" style="background:#1e1608;border:1px solid rgba(201,168,76,0.2)">
-                <i class="fa-solid fa-triangle-exclamation text-xl flex-shrink-0" style="color:var(--ad-gold)"></i>
-                <div><p style="font-size:13px;font-weight:700;color:var(--ad-gold2);">Masa Rental Hampir Habis!</p><p id="expiryDesc" style="font-size:11px;color:var(--ad-gold3);margin-top:2px;"></p></div>
+            <div class="alert-card">
+                <span class="alert-ico"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                <div>
+                    <p style="font-size:13px;font-weight:700;color:#7A5500;">Masa Rental Hampir Habis!</p>
+                    <p id="expiryDesc" style="font-size:11px;color:#8A5E08;margin-top:2px;"></p>
+                </div>
             </div>
         </div>
 
         <div class="stagger-item" style="animation-delay:.1s">
             <div class="flex justify-between items-center mb-3 px-1">
-                <h3 class="font-display" style="font-weight:600;color:#7A5500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Timeline Rental</h3>
+                <p class="sec-title">Timeline Rental</p>
             </div>
             <div class="gantt-outer">
                 <div class="gantt-filters">
-                    <span class="gantt-label"><i class="fa-solid fa-calendar-days mr-1"></i></span>
+                    <span class="gantt-label"><i class="fa-solid fa-calendar-days"></i></span>
                     <select id="filterMonth" onchange="loadTimelineChart()" style="flex:1;min-width:120px;"></select>
                     <select id="filterUnit" onchange="loadTimelineChart()" style="flex:1;min-width:120px;"><option value="">Semua Unit</option></select>
                 </div>
-                <div id="chartLoading" class="flex items-center justify-center py-12 gap-2" style="color:var(--ad-muted);font-size:13px;"><i class="fa-solid fa-spinner animate-spin"></i> Memuat grafik...</div>
+                <div id="chartLoading" class="flex items-center justify-center py-12 gap-2" style="color:#aaa;font-size:13px;"><i class="fa-solid fa-spinner animate-spin"></i> Loading...</div>
                 <div id="ganttWrap" class="gantt-scroll hidden"></div>
-                <p id="chartEmpty" class="hidden text-center py-10" style="color:var(--ad-muted);font-size:13px;"><i class="fa-solid fa-calendar-xmark text-2xl mb-2 block"></i>Belum ada data</p>
+                <p id="chartEmpty" class="hidden text-center py-10" style="color:#aaa;font-size:13px;"><i class="fa-solid fa-calendar-xmark text-2xl mb-2 block"></i>Belum ada data</p>
                 <div id="ganttLegend" class="gantt-legend hidden"></div>
             </div>
         </div>
 
         <div class="stagger-item" style="animation-delay:.14s">
-
-  <!-- CLUSTER INTERNAL -->
-  <div style="border-radius:16px;overflow:hidden;border:1.5px solid var(--ad-border);margin-bottom:12px;">
-    <div style="background:#1A1A1A;padding:8px 14px;display:flex;align-items:center;gap:8px;">
-      <span style="width:8px;height:8px;border-radius:50%;background:var(--ad-gold);flex-shrink:0;"></span>
-      <span class="font-display" style="font-size:10px;font-weight:700;color:#e5b874;letter-spacing:.15em;text-transform:uppercase;">Internal</span>
-    </div>
-    <div class="grid grid-cols-2 gap-px" style="background:rgba(0,0,0,0.06);">
-      <div class="stat-card" onclick="showDetailModal('available','Internal')" style="border-radius:0;border:none;">
-        <p style="font-size:10px;color:var(--ad-muted);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Tersedia</p>
-        <p id="countInternalAvailable" style="font-size:36px;font-weight:700;color:#1A1A1A;line-height:1;">0</p>
-        <div class="flex items-center mt-2" style="font-size:11px;font-weight:600;color:var(--ad-gold);"><span>Lihat detail</span><i class="fa-solid fa-chevron-right ml-1" style="font-size:9px;"></i></div>
-      </div>
-      <div class="stat-card" onclick="showDetailModal('active','Internal')" style="border-radius:0;border:none;">
-        <p style="font-size:10px;color:var(--ad-muted);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Sedang Rental</p>
-        <p id="countInternalRented" style="font-size:36px;font-weight:700;color:#1A1A1A;line-height:1;">0</p>
-        <div class="flex items-center mt-2" style="font-size:11px;font-weight:600;color:var(--ad-gold);"><span>Lihat detail</span><i class="fa-solid fa-chevron-right ml-1" style="font-size:9px;"></i></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CLUSTER EXTERNAL — hanya tampil jika ada yang aktif, dikontrol JS -->
-  <div id="clusterExternal" style="border-radius:16px;overflow:hidden;border:1.5px solid var(--ad-ext-border);">
-    <div style="background:#0f1f3d;padding:8px 14px;display:flex;align-items:center;gap:8px;">
-      <span style="width:8px;height:8px;border-radius:50%;background:var(--ad-ext);flex-shrink:0;"></span>
-      <span class="font-display" style="font-size:10px;font-weight:700;color:#9DC3FF;letter-spacing:.15em;text-transform:uppercase;">External</span>
-      <span id="extClusterBadge" style="margin-left:auto;font-size:9px;font-weight:700;color:#9DC3FF;background:rgba(111,160,255,0.15);padding:2px 8px;border-radius:20px;letter-spacing:.05em;"></span>
-    </div>
-    <div style="background:var(--ad-dark3);">
-      <div class="stat-card external" onclick="showDetailModal('active','External')" style="border-radius:0;border:none;border-top:1px solid rgba(74,128,224,0.1);">
-        <p style="font-size:10px;color:var(--ad-muted);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Sedang Rental</p>
-        <p id="countExternalRented" style="font-size:36px;font-weight:700;color:#1A1A1A;line-height:1;">0</p>
-        <div class="flex items-center mt-2" style="font-size:11px;font-weight:600;color:var(--ad-ext);"><span>Lihat detail</span><i class="fa-solid fa-chevron-right ml-1" style="font-size:9px;"></i></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-        <div class="stagger-item" style="animation-delay:.22s">
-            <h3 class="font-display" style="font-weight:600;color:#7A5500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;padding:0 2px;">Aktivitas Terbaru</h3>
+            <p class="sec-title" style="margin-bottom:12px;padding:0 2px;">Aktivitas Terbaru</p>
             <div id="rentalList" class="space-y-3">
-                <div class="p-4 rounded-2xl text-center text-sm" style="background:var(--ad-dark3);color:var(--ad-muted);"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Memuat data...</div>
+                <div class="p-4 rounded-2xl text-center text-sm" style="background:var(--ad-dark3);color:var(--ad-muted);"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Loading...</div>
             </div>
         </div>
     </div>
@@ -466,7 +632,6 @@
         <div id="historyList" class="space-y-3"></div>
     </div>
 
-    <!-- PROFILE -->
     <!-- PROFILE -->
 <div id="pageProfile" class="page-section px-4 py-4">
 
@@ -779,7 +944,7 @@
             <div class="flex gap-3 pt-1">
                 <button onclick="submitBops()" id="btnSubmitBops"
                     class="btn-primary flex items-center justify-center gap-2" style="flex:2;">
-                    <i class="fa-solid fa-floppy-disk"></i> SIMPAN
+                    <i class="fa-solid fa-floppy-disk"></i> SAVE
                 </button>
                 <button onclick="closeBopsForm()"
                     class="btn-primary" style="flex:1;background:rgba(0,0,0,0.06);color:var(--ad-silver);border:1px solid rgba(0,0,0,0.1);">
@@ -790,69 +955,76 @@
         </div>
     </div>
 </div>
-    <!-- Bottom Nav -->
-     <!-- INVOICE / PAYMENT -->
-    <div id="pagePayment" class="page-section px-4 py-4">
+
+        <!-- MENU OPERASIONAL -->
+    <div id="pageOps" class="page-section px-4 py-5">
+        <div class="hub-head"><h3>Operasional</h3><p>Kelola unit, riwayat rental, dan lembur driver</p></div>
+        <div class="hub-panel motif-bg">
+            <div class="hub-grid">
+                <button class="hub-card" id="hubCard_service" onclick="switchPage('service')">
+                    <span class="hub-ico"><i class="fa-solid fa-bus"></i></span>
+                    <span class="hub-title">Unit</span><span class="hub-sub" id="hubSub_service">—</span>
+                </button>
+                <button class="hub-card" id="hubCard_history" onclick="switchPage('history')">
+                    <span class="hub-ico"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                    <span class="hub-title">Riwayat</span><span class="hub-sub" id="hubSub_history">—</span>
+                </button>
+                <button class="hub-card" id="hubCard_lembur" onclick="switchPage('lembur')">
+                    <span class="hub-ico"><i class="fa-solid fa-stopwatch"></i></span>
+                    <span class="hub-title">Lembur</span><span class="hub-sub" id="hubSub_lembur">Overtime driver</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU FINANCE -->
+    <div id="pageFin" class="page-section px-4 py-5">
+        <div class="hub-head"><h3>Finance</h3><p>Invoice, BOPS, dan biaya operasional driver</p></div>
+        <div class="hub-panel motif-bg">
+            <div class="hub-grid">
+                <button class="hub-card" id="hubCard_payment" onclick="switchPage('payment')">
+                    <span class="hub-ico"><i class="fa-solid fa-file-invoice"></i></span>
+                    <span class="hub-title">Invoice</span><span class="hub-sub" id="hubSub_payment">—</span>
+                </button>
+                <button class="hub-card" id="hubCard_bops" onclick="switchPage('bops')">
+                    <span class="hub-ico"><i class="fa-solid fa-book-open"></i></span>
+                    <span class="hub-title">BOPS</span><span class="hub-sub" id="hubSub_bops">Operasional</span>
+                </button>
+                <button class="hub-card" id="hubCard_costdriver" onclick="switchPage('costdriver')">
+                    <span class="hub-ico"><i class="fa-solid fa-receipt"></i></span>
+                    <span class="hub-title">Biaya</span><span class="hub-sub" id="hubSub_costdriver">Driver</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN UNIT -->
+    <div id="pageUnit" class="page-section px-4 py-4">
         <div class="flex items-center justify-between mb-4">
-            <h3 class="font-display" style="font-weight:600;font-size:17px;color:#1A1A1A;">Rekap Invoice</h3>
-            <button onclick="loadPaymentTab()" style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.08);color:var(--ad-muted);font-size:11px;padding:6px 12px;border-radius:8px;font-weight:700;cursor:pointer;">
-                <i class="fa-solid fa-rotate-right mr-1"></i>Refresh
-            </button>
-        </div>
-        <div class="grid grid-cols-4 gap-2 mb-4">
-            <div class="rounded-xl p-3 text-center" style="background:var(--ad-dark3);border-top:3px solid #16a34a;">
-                <p style="font-size:9px;color:var(--ad-muted);margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em;">Lunas</p>
-                <p id="pmCountFull" style="font-size:22px;font-weight:700;color:#1A1A1A;">0</p>
+            <div>
+                <h3 class="font-display" style="font-weight:700;font-size:17px;color:#1A1A1A;">Unit Armada</h3>
+                <p style="font-size:11px;color:var(--ad-muted);">Kelola kendaraan Internal &amp; External</p>
             </div>
-            <div class="rounded-xl p-3 text-center" style="background:var(--ad-dark3);border-top:3px solid #d97706;">
-                <p style="font-size:9px;color:var(--ad-muted);margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em;">DP/Parsial</p>
-                <p id="pmCountDP" style="font-size:22px;font-weight:700;color:#1A1A1A;">0</p>
-            </div>
-            <div class="rounded-xl p-3 text-center" style="background:var(--ad-dark3);border-top:3px solid rgba(0,0,0,0.15);">
-                <p style="font-size:9px;color:var(--ad-muted);margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em;">Belum</p>
-                <p id="pmCountNone" style="font-size:22px;font-weight:700;color:#1A1A1A;">0</p>
-            </div>
-            <div class="rounded-xl p-3 text-center" style="background:rgba(201,168,76,0.06);border-top:3px solid var(--ad-gold);">
-                <p style="font-size:9px;color:var(--ad-gold);margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Diterima</p>
-                <p id="pmTotalDiterima" style="font-size:13px;font-weight:700;color:var(--ad-gold2);">Rp 0</p>
-            </div>
+            <button onclick="openAddKendaraanModal()" class="btn-mini"><i class="fa-solid fa-plus"></i> Tambah</button>
         </div>
-        <div class="flex gap-2 mb-3 overflow-x-auto pb-1">
-            <button onclick="filterPaymentTab('semua')" id="pmFilterSemua" class="filter-pill active">Semua</button>
-            <button onclick="filterPaymentTab('FULL')" id="pmFilterFULL" class="filter-pill">Lunas</button>
-            <button onclick="filterPaymentTab('DP')" id="pmFilterDP" class="filter-pill">DP</button>
-            <button onclick="filterPaymentTab('PARSIAL')" id="pmFilterPARSIAL" class="filter-pill">Parsial</button>
-            <button onclick="filterPaymentTab('none')" id="pmFilterNone" class="filter-pill">Belum</button>
-        </div>
-        <div class="relative mb-3">
-            <i class="fa-solid fa-search absolute left-3 top-3" style="color:var(--ad-muted);font-size:12px;"></i>
-            <input type="text" id="pmSearch" placeholder="Cari nama / nopol..."
-                   class="w-full pl-8 pr-3 py-2.5 rounded-xl text-sm outline-none"
-                   style="border:1px solid rgba(0,0,0,0.08);background:var(--ad-dark3);color:#1A1A1A;"
-                   oninput="renderPaymentTab()">
-        </div>
-        <div style="overflow-x:auto;border-radius:14px;border:1px solid rgba(0,0,0,0.07);">
-            <table id="invoiceTable" style="width:100%;border-collapse:collapse;min-width:560px;font-size:12px;">
-                <thead>
-                    <tr style="background:#1A1A1A;">
-                        <th style="padding:10px;text-align:left;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;">No / Nopol</th>
-                        <th style="padding:10px 8px;text-align:left;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Penyewa</th>
-                        <th style="padding:10px 8px;text-align:center;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;">Periode</th>
-                        <th style="padding:10px 8px;text-align:right;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;">Tagihan</th>
-                        <th style="padding:10px 8px;text-align:right;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;">Diterima</th>
-                        <th style="padding:10px 8px;text-align:center;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Status</th>
-                        <th style="padding:10px 8px;text-align:center;font-size:10px;color:#e5b874;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="paymentTabList">
-                    <tr><td colspan="7" style="text-align:center;padding:32px;color:var(--ad-muted);background:var(--ad-dark3);">
-                        <i class="fa-solid fa-spinner animate-spin mr-2"></i>Memuat data...
-                    </td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p id="pmTableCount" style="font-size:11px;color:var(--ad-muted);text-align:right;margin-top:8px;padding-right:4px;"></p>
-    </div><!-- akhir pagePayment -->
+        <div id="unitList" class="space-y-3"></div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="nav-bar">
+        <button onclick="switchPage('dashboard')" id="navDashboard" class="nav-btn active">
+            <span class="nav-ico"><i class="fa-solid fa-house"></i></span><p>Beranda</p>
+        </button>
+        <button onclick="switchPage('ops')" id="navOps" class="nav-btn">
+            <span class="nav-ico"><i class="fa-solid fa-table-cells-large"></i></span><p>Operasional</p>
+        </button>
+        <button onclick="switchPage('fin')" id="navFin" class="nav-btn">
+            <span class="nav-ico"><i class="fa-solid fa-wallet"></i></span><p>Finance</p>
+        </button>
+        <button onclick="switchPage('profile')" id="navProfile" class="nav-btn">
+            <span class="nav-ico"><i class="fa-solid fa-user"></i></span><p>Profil</p>
+        </button>
+    </nav>
 
 <!-- MODAL: Input Pengeluaran Driver -->
 <div id="modalCostDriver" class="hidden fixed inset-0 z-[600] flex items-end" style="background:rgba(0,0,0,0.7);" onclick="closeCostDriverForm()">
@@ -908,7 +1080,7 @@
             </div>
 
             <button onclick="submitCostDriver()" id="btnSubmitCostDriver" class="btn-primary flex items-center justify-center gap-2">
-                <i class="fa-solid fa-floppy-disk"></i> SIMPAN
+                <i class="fa-solid fa-floppy-disk"></i> SAVE
             </button>
             <div class="h-2"></div>
         </div>
@@ -1063,7 +1235,7 @@
                 <option value="adeeva rent">Adeeva Rent</option>
               </select>
             </div>
-            <button onclick="submitAddKendaraan()" id="btnAddKendaraan" class="btn-primary"></i>SIMPAN KENDARAAN</button>
+            <button onclick="submitAddKendaraan()" id="btnAddKendaraan" class="btn-primary"></i>SAVE KENDARAAN</button>
         </div>
     </div>
 </div>
@@ -1233,7 +1405,7 @@
             </div>
 
             <button onclick="submitTimesheet()" id="btnSaveTs" class="btn-primary flex items-center justify-center gap-2">
-                <i class="fa-solid fa-floppy-disk"></i> SIMPAN TIMESHEET
+                <i class="fa-solid fa-floppy-disk"></i> SAVE TIMESHEET
             </button>
             <div class="h-2"></div>
         </div>
@@ -1314,7 +1486,7 @@
                 <img id="pmBuktiPreview" class="hidden w-full rounded-xl mt-3 max-h-48 object-cover">
             </div>
             <button onclick="submitPayment()" id="btnSubmitPayment" class="btn-primary flex items-center justify-center gap-2">
-                <i class="fa-solid fa-floppy-disk"></i> SIMPAN PEMBAYARAN
+                <i class="fa-solid fa-floppy-disk"></i> SAVE PEMBAYARAN
             </button>
             <div class="h-2"></div>
         </div>
@@ -1473,10 +1645,10 @@
             <!-- Action Buttons -->
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <button onclick="saveSPJData()" id="btnSaveSPJ" class="btn-primary" style="background:rgba(0,0,0,0.06);color:var(--ad-silver);border:1px solid rgba(0,0,0,0.1);">
-                    <i class="fa-solid fa-floppy-disk mr-2"></i>Simpan
+                    <i class="fa-solid fa-floppy-disk mr-2"></i>SAVE
                 </button>
                 <button onclick="printSPJ()" id="btnPrintSPJ" class="btn-primary">
-                    <i class="fa-solid fa-print mr-2"></i>Cetak SPJ
+                    <i class="fa-solid fa-print mr-2"></i>Print SPJ
                 </button>
             </div>
             <div class="h-2"></div>
@@ -1501,32 +1673,6 @@
     </div>
 </div>
 
-<!-- MODAL: Update Service -->
-<div id="modalServiceUpdate" class="hidden fixed inset-0 z-[1000] flex items-center justify-center p-4" style="background:rgba(0,0,0,0.7);" onclick="closeServiceModal()">
-    <div class="w-full max-w-md rounded-2xl p-6 modal-center" onclick="event.stopPropagation()">
-        <div class="flex justify-between items-center mb-5">
-            <div>
-                <h3 class="font-display" style="font-size:16px;font-weight:600;color:#1A1A1A;">Update Service</h3>
-                <p style="font-size:11px;color:var(--ad-muted);margin-top:2px;">Perbarui tanggal service kendaraan</p>
-            </div>
-            <button onclick="closeServiceModal()" style="font-size:24px;color:var(--ad-muted);background:none;border:none;cursor:pointer;">&times;</button>
-        </div>
-        <div class="rounded-2xl px-4 py-1 mb-4" style="background:var(--ad-dark3);">
-            <div class="vinfo-row"><span class="vinfo-label">Unit</span><span class="vinfo-value font-black" id="serviceNopolDisplay" style="color:var(--ad-gold);">—</span></div>
-            <div class="vinfo-row"><span class="vinfo-label">Jenis</span><span class="vinfo-value" id="serviceMobilDisplay">—</span></div>
-            <div class="vinfo-row"><span class="vinfo-label">Service Terakhir</span><span class="vinfo-value" id="serviceLastDisplay" style="color:var(--ad-muted);">—</span></div>
-        </div>
-        <div class="space-y-4">
-            <input type="hidden" id="serviceNopol">
-            <div><label class="form-label">Tanggal Service Baru <span style="color:var(--ad-gold);">*</span></label><input type="date" id="serviceNewDate" class="form-input"></div>
-            <div><label class="form-label">Keterangan (opsional)</label><input type="text" id="serviceKeterangan" placeholder="Contoh: Ganti oli, tune up..." class="form-input"></div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="updateServiceRecord()" id="btnUpdateService" class="flex-1 py-3 rounded-xl font-bold text-sm" style="background:linear-gradient(135deg,var(--ad-gold),var(--ad-gold2));color:var(--ad-dark);border:none;cursor:pointer;"><i class="fa-solid fa-wrench mr-1"></i>UPDATE SERVICE</button>
-                <button onclick="closeServiceModal()" class="flex-1 py-3 rounded-xl font-bold text-sm" style="background:rgba(0,0,0,0.04);color:var(--ad-silver);border:1px solid rgba(0,0,0,0.08);cursor:pointer;">Batal</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- MODAL: Edit Unit Kendaraan -->
 <div id="modalEditUnit" class="hidden fixed inset-0 z-[1000] flex items-center justify-center p-4" style="background:rgba(0,0,0,0.7);" onclick="closeEditUnitModal()">
     <div class="w-full max-w-md rounded-2xl p-6 modal-center" onclick="event.stopPropagation()">
@@ -1572,7 +1718,7 @@
 
             <div class="flex gap-3 pt-2">
                 <button onclick="submitEditUnit()" id="btnSubmitEditUnit" class="btn-primary flex items-center justify-center gap-2" style="flex:2;">
-                    <i class="fa-solid fa-floppy-disk"></i> SIMPAN PERUBAHAN
+                    <i class="fa-solid fa-floppy-disk"></i> SAVE PERUBAHAN
                 </button>
                 <button onclick="closeEditUnitModal()" class="btn-primary" style="flex:1;background:rgba(0,0,0,0.06);color:var(--ad-silver);border:1px solid rgba(0,0,0,0.1);">
                     Batal
@@ -1697,7 +1843,7 @@
     <input type="hidden" id="fRentalEditId" value="">
 
     <button onclick="submitRental()" id="btnSubmitRental" class="btn-primary">
-        <i class="fa-solid fa-paper-plane mr-2"></i><span id="btnSubmitRentalLabel">SIMPAN PESANAN</span>
+        <i class="fa-solid fa-paper-plane mr-2"></i><span id="btnSubmitRentalLabel">SAVE PESANAN</span>
     </button>
 </div>
     </div>
@@ -1741,7 +1887,7 @@
                     <button onclick="clearSignature()" class="text-xs px-3 py-1.5 rounded-lg" style="color:var(--ad-silver);border:1px solid rgba(0,0,0,0.08);background:none;cursor:pointer;"><i class="fa-solid fa-eraser mr-1"></i>Ulangi</button>
                 </div>
             </div>
-            <button onclick="submitVerify()" class="btn-primary flex items-center justify-center gap-2"><i class="fa-solid fa-circle-check"></i> SIMPAN VERIFIKASI</button>
+            <button onclick="submitVerify()" class="btn-primary flex items-center justify-center gap-2"><i class="fa-solid fa-circle-check"></i> SAVE VERIFIKASI</button>
             <div class="h-2"></div>
         </div>
     </div>
@@ -1913,69 +2059,70 @@ function _rentalVisibleForRole(rental) {
     if (!armadaUnit) return false;
     return _unitVisibleForRole(armadaUnit);
 }
-/* ─── PAGE TRANSITIONS ─── */
+/* ─── PAGE TRANSITIONS & NAVIGASI ─── */
+const PAGE_MAP = {
+    dashboard:'pageDashboard', ops:'pageOps', fin:'pageFin', service:'pageUnit',
+    history:'pageHistory', lembur:'pageLembur', payment:'pagePayment',
+    bops:'pageBops', costdriver:'pageCostdriver', profile:'pageProfile'
+};
+const HUB_CHILDREN = { ops:['service','history','lembur'], fin:['payment','bops','costdriver'] };
+const PAGE_PARENT  = { service:'ops', history:'ops', lembur:'ops', payment:'fin', bops:'fin', costdriver:'fin' };
+const PAGE_TITLE   = {
+    ops:['Menu','Operasional'], fin:['Menu','Finance'], service:['Operasional','Unit Armada'],
+    history:['Operasional','Riwayat Rental'], lembur:['Operasional','Rekap Lembur'],
+    payment:['Finance','Invoice'], bops:['Finance','BOPS'], costdriver:['Finance','Biaya Driver'], profile:['Akun','Profil']
+};
+
+function _setNav(page) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const tab = HUB_CHILDREN[page] ? page : (PAGE_PARENT[page] || page);
+    const id = { dashboard:'navDashboard', ops:'navOps', fin:'navFin', profile:'navProfile' }[tab];
+    const el = id && document.getElementById(id);
+    if (el) el.classList.add('active');
+}
+
+function updateHeader(page) {
+    const eb = document.getElementById('hdrEyebrow'), tt = document.getElementById('userNameDisplay'), bk = document.getElementById('btnBack');
+    if (!eb || !tt) return;
+    if (page === 'dashboard') { eb.innerText = 'Selamat datang'; tt.innerText = window._displayName || 'ADEEVA'; }
+    else { const m = PAGE_TITLE[page] || ['','']; eb.innerText = m[0]; tt.innerText = m[1]; }
+    if (bk) bk.style.display = PAGE_PARENT[page] ? 'flex' : 'none';
+}
+
+function goBack() { const p = PAGE_PARENT[currentPage]; if (p) switchPage(p); }
+
 function switchPage(page) {
-    const role = currentUser?.role || 'operasional';
-    const perm = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.operasional;
-    if(!perm.nav.includes(page) && page !== 'profile') { showToastSuccess('Akses tidak diizinkan untuk role ini.'); return; }
-  const sp = document.getElementById('servicePage');
-  if (sp && !sp.classList.contains('hidden')) {
-    sp.classList.add('hidden');
-    sp.style.display = 'none';
-    document.querySelectorAll('.page-section').forEach(p => {
-      p.style.display = '';
+    const role = currentUser?.role || 'pariwisata';
+    const perm = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.pariwisata;
+    const isHub = !!HUB_CHILDREN[page];
+    const allowed = page === 'profile' || page === 'dashboard' ||
+        (isHub ? HUB_CHILDREN[page].some(k => perm.nav.includes(k)) : perm.nav.includes(page));
+    if (!allowed) { showToastSuccess('Akses tidak diizinkan untuk role ini.'); return; }
+
+    const next = document.getElementById(PAGE_MAP[page]);
+    if (!next) return;
+    if (page === currentPage && next.classList.contains('active')) return;
+
+    document.querySelectorAll('.page-section.active').forEach(p => {
+        if (p === next) return;
+        p.classList.add('leaving'); p.classList.remove('active');
+        setTimeout(() => p.classList.remove('leaving'), 200);
     });
-  }
- 
-  if (page === currentPage) return;
-  
-  // ← TAMBAH 'bops' DI SINI
-  const pages = {
-    dashboard: 'pageDashboard',
-    history:   'pageHistory',
-    profile:   'pageProfile',
-    payment:   'pagePayment',
-    lembur:    'pageLembur',
-    bops:      'pageBops',
-    costdriver:'pageCostdriver'   // ← BARU
-  };
-  
-  const old  = document.getElementById(pages[currentPage]);
-  const next = document.getElementById(pages[page]);
-  if (!next) return;
- 
-  if (old) {
-    old.classList.add('leaving');
-    old.classList.remove('active');
-    setTimeout(() => old.classList.remove('leaving'), 200);
-  }
-  next.classList.add('entering');
-  setTimeout(() => {
-    next.classList.add('active');
-    next.classList.remove('entering');
-  }, 280);
- 
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  
-  // ← TAMBAH 'bops' DI SINI JUGA
-  const navMap = {
-    dashboard: 'navDashboard',
-    history:   'navHistory',
-    profile:   'navProfile',
-    payment:   'navPayment',
-    lembur:    'navLembur',
-    bops:      'navBops',
-    costdriver:'navCostdriver'
-  };
-  
-  if (navMap[page]) document.getElementById(navMap[page]).classList.add('active');
-  currentPage = page;
- 
-  if (page === 'history') setTimeout(renderHistoryList, 50);
-  if (page === 'payment') setTimeout(loadPaymentTab, 50);
-  if (page === 'lembur')  setTimeout(loadLemburPage, 50);
-  if (page === 'bops')    setTimeout(loadBopsPage, 50);
-  if (page === 'costdriver') setTimeout(loadCostDriverPage, 50); 
+    next.classList.add('entering');
+    setTimeout(() => { next.classList.add('active'); next.classList.remove('entering'); }, 280);
+
+    currentPage = page;
+    _setNav(page);
+    updateHeader(page);
+    window.scrollTo({ top: 0 });
+
+    if (isHub)                 setTimeout(renderHubs, 50);
+    if (page === 'service')    setTimeout(renderUnitList, 50);
+    if (page === 'history')    setTimeout(renderHistoryList, 50);
+    if (page === 'payment')    setTimeout(loadPaymentTab, 50);
+    if (page === 'lembur')     setTimeout(loadLemburPage, 50);
+    if (page === 'bops')       setTimeout(loadBopsPage, 50);
+    if (page === 'costdriver') setTimeout(loadCostDriverPage, 50);
 }
 
 /* ─── SPLASH ─── */
@@ -2171,7 +2318,7 @@ function handleLogout() {
     });
 
     document.getElementById('mainApp').classList.add('hidden');
-    document.getElementById('servicePage').classList.add('hidden');
+    _setNav('dashboard'); updateHeader('dashboard');
     document.querySelectorAll('.page-section').forEach(p => {
         p.classList.remove('active','entering','leaving');
         p.style.cssText = '';
@@ -2190,10 +2337,10 @@ function startApp() {
     document.getElementById('mainApp').classList.remove('hidden');
     // Tampilkan nama user di header kanan atas
     const displayName = currentUser.name || ROLE_LABELS[currentUser.role] || currentUser.role;
-    document.getElementById('userNameDisplay').innerText = 'Halo, ' + displayName;
-    const shortName = displayName.split(' ')[0];
+    window._displayName = displayName;
     const nameShortEl = document.getElementById('userNameShort');
-    if (nameShortEl) nameShortEl.innerText = shortName;
+    if (nameShortEl) nameShortEl.innerText = displayName.split(' ').slice(0,2).map(w => (w[0] || '')).join('').toUpperCase() || 'U';
+    updateHeader('dashboard');
 
     document.getElementById('profileName').innerText  = displayName;
     document.getElementById('profileEmail').innerText = currentUser.email || currentUser.posisi || '';
@@ -2213,33 +2360,21 @@ function startApp() {
 function applyRoleUI() {
     const role = currentUser?.role || 'pariwisata';
     const perm = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.pariwisata;
+    const show = (id, on) => { const el = document.getElementById(id); if (el) el.style.display = on ? '' : 'none'; };
+    const has  = keys => keys.some(k => perm.nav.includes(k));
 
-    // Nav visibility
-    const navMap = {
-        dashboard: 'navDashboard',
-        service:   'navService',
-        history:   'navHistory',
-        payment:   'navPayment',
-        lembur:    'navLembur',
-        bops:      'navBops'
-    };
-    Object.entries(navMap).forEach(([key, id]) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.style.display = perm.nav.includes(key) ? '' : 'none';
-    });
+    show('navOps', has(HUB_CHILDREN.ops));
+    show('navFin', has(HUB_CHILDREN.fin));
+    show('navProfile', role !== 'logbook');
+    ['service','history','lembur','payment','bops','costdriver'].forEach(k => show('hubCard_' + k, perm.nav.includes(k)));
 
-    // FAB tombol tambah rental
     const fab = document.getElementById('fabAddRental');
     if (fab) {
-        if (perm.canAddRental) {
-            fab.style.removeProperty('display');
-            fab.style.setProperty('display', 'flex', 'important');
-        } else {
-            fab.style.removeProperty('display');
-            fab.style.setProperty('display', 'none', 'important');
-        }
+        fab.style.removeProperty('display');
+        fab.style.setProperty('display', perm.canAddRental ? 'flex' : 'none', 'important');
     }
+    _setNav('dashboard');
+    updateHeader('dashboard');
 }
 
 function _applyLogbookUI() {
@@ -2258,7 +2393,7 @@ function onDataLoaded(data) {
     initDropdowns();
     renderDashboard();
     if (currentUser?.role !== 'logbook') {
-        loadServiceAlerts();
+        renderHubs(); renderUnitList();
         loadTimelineChart();
     }
     renderHistoryList();
@@ -2366,6 +2501,7 @@ function renderDashboard() {
         const badge = document.getElementById('extClusterBadge');
         if (badge) badge.innerText = externalRented + ' unit aktif';
     }
+    _renderDashViz(internalArmada, externalRented);
 
     const activeRentals = dbData.rentals.filter(r => r.status !== 'Selesai');
     const expiring = activeRentals.filter(r => {
@@ -2480,7 +2616,7 @@ function renderDashboard() {
 }
 function _renderRentalListOnly() {
     // Sembunyikan section yang tidak perlu untuk logbook
-    document.getElementById('serviceAlertContainer').classList.add('hidden');
+
     document.getElementById('expiryAlertContainer').classList.add('hidden');
 
     // Langsung render list rental aktif (kode sama persis dengan renderDashboard bagian bawah)
@@ -2872,18 +3008,18 @@ function _buildAndRenderInvoice(r) {
         isDone      : r.status === 'Selesai'
     };
  
-    _showPdfLoadingModal('Membuat Invoice ' + nomorInv + '…');
+    _showPdfLoadingModal('Preparing Invoice ' + nomorInv + '…');
  
     google.script.run
         .withSuccessHandler(function(res) {
             _closePdfLoadingModal();
             if (!res || !res.pdfBase64) {
-                alert('Gagal membuat PDF invoice. Pastikan fungsi printInvoiceAsPDF sudah ada di Apps Script.');
+                alert('Gagal Preparing PDF invoice. Pastikan fungsi printInvoiceAsPDF sudah ada di Apps Script.');
                 return;
             }
             const fileName = 'Invoice_' + res.nomorInv.replace(/\//g, '_') + '.pdf';
             _downloadPDF(res.pdfBase64, fileName);
-            showToastSuccess('Invoice ' + res.nomorInv + ' berhasil diunduh!');
+            showToastSuccess('Invoice ' + res.nomorInv + ' berhasil di-Download!');
         })
         .withFailureHandler(function(err) {
             _closePdfLoadingModal();
@@ -2905,7 +3041,7 @@ function _showInvoiceLoadingModal(nomorInv, onCancel) {
                 <i class="fa-solid fa-file-invoice"></i> Invoice ${nomorInv}
             </p>
             <p style="color:rgba(212,175,55,0.5);font-size:11px;margin-bottom:20px;font-family:sans-serif;">
-                Membuat PDF via server...
+                Preparing PDF via server...
             </p>
             <div style="margin-bottom:20px;">
                 <i class="fa-solid fa-spinner fa-spin" style="color:#D4AF37;font-size:28px;"></i>
@@ -3214,196 +3350,114 @@ function showDetailModal(type, unitType) {
  
 function closeDetailModal(){document.getElementById('modalDetails').classList.add('hidden');}
 
-/* ─── SERVICE ─── */
-function loadServiceAlerts(){
-    google.script.run.withSuccessHandler(alerts=>{
-        if(!alerts||!alerts.length)return;
-        const needsService=alerts.filter(a=>a.status==='butuh_service').length;
-        const noService=alerts.filter(a=>a.status==='belum_service').length;
-        if(needsService+noService>0){ document.getElementById('serviceAlertContainer').classList.remove('hidden'); document.getElementById('serviceDesc').innerText=`${needsService} butuh service, ${noService} belum pernah service`; }
-    }).getServiceAlerts();
-}
-function showServicePage() {
-  // Tandai currentPage sebagai 'service' supaya switchPage tidak skip
-  currentPage = 'service';
+/* ─── GRAFIK DASHBOARD ─── */
+function _renderDashViz(internalArmada, externalRented) {
+    const total = internalArmada.length;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const nopols = new Set(internalArmada.map(a => a.nopol));
+    const hari = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+    const occ = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(today); d.setDate(d.getDate() + i);
+        const set = new Set();
+        dbData.rentals.forEach(r => {
+            if (r.status === 'Selesai' || !r.start || !nopols.has(r.nopol)) return;
+            const s = new Date(r.start); s.setHours(0,0,0,0);
+            const f = r.finish ? new Date(r.finish) : new Date(s); f.setHours(0,0,0,0);
+            if (s <= d && d <= f) set.add(r.nopol);
+        });
+        occ.push({ n: set.size, label: i === 0 ? 'Hari ini' : hari[d.getDay()] });
+    }
+    const rented = occ[0].n, free = Math.max(0, total - rented);
+    const pct = total ? Math.round(rented / total * 100) : 0;
+    const C = 2 * Math.PI * 42;
+    const ring = document.getElementById('dashRing');
+    if (ring) ring.setAttribute('stroke-dasharray', (C * pct / 100) + ' ' + C);
+    const setT = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+    setT('dashRingPct', pct + '%'); setT('dashLgRented', rented); setT('dashLgFree', free);
+    setT('dashLgExt', externalRented || 0); setT('dashLgTotal', total); setT('dashDate', formatTanggalHari());
 
-  // Sembunyikan semua page section via class saja, TANPA inline style
-  document.querySelectorAll('.page-section').forEach(p => {
-    p.classList.remove('active', 'entering', 'leaving');
-    // Tidak pakai p.style.display = 'none' — biarkan CSS mengontrol
-  });
-
-  const sp = document.getElementById('servicePage');
-  sp.classList.remove('hidden');
-  sp.style.display = 'block';
-
-  // Nav: tandai Unit sebagai aktif
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const navService = document.getElementById('navService');
-  if (navService) navService.classList.add('active');
-
-  document.getElementById('serviceList').innerHTML =
-    '<div class="text-center py-8" style="color:var(--ad-muted);">' +
-    '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Memuat data armada...</div>';
-
-  google.script.run
-    .withSuccessHandler(function(data) {
-      dbData.armada  = data.armada  || [];
-      dbData.rentals = data.rentals || [];
-      initDropdowns();
-      google.script.run
-        .withSuccessHandler(function(alerts) {
-          serviceData = alerts || [];
-          displayServiceList(serviceData);
-        })
-        .withFailureHandler(function() {
-          serviceData = [];
-          displayServiceList([]);
-        })
-        .getServiceAlerts();
-    })
-    .withFailureHandler(function(err) {
-      document.getElementById('serviceList').innerHTML =
-        '<div class="text-center py-8" style="color:#cc4444;">' +
-        '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Gagal: ' +
-        (err ? err.message || err : 'error') + '</div>';
-    })
-    .getInitialData();
+    const box = document.getElementById('dashOcc');
+    if (box) box.innerHTML = occ.map((o, i) => {
+        const h = total ? Math.max(6, Math.round(o.n / total * 100)) : 6;
+        return '<div class="occ-col"><span class="occ-val">' + o.n + '</span>' +
+               '<div class="occ-track"><div class="occ-fill' + (i === 0 ? ' today' : '') + '" style="height:' + h + '%"></div></div>' +
+               '<span class="occ-lbl' + (i === 0 ? ' today' : '') + '">' + o.label + '</span></div>';
+    }).join('');
 }
 
-function hideServicePage() {
-  const sp = document.getElementById('servicePage');
-  sp.classList.add('hidden');
-  sp.style.display = 'none';
-
-  // Set currentPage ke sesuatu selain 'dashboard'
-  // supaya switchPage('dashboard') tidak terkena early return
-  currentPage = null;
-
-  // Restore semua page-section: clear semua inline style
-  document.querySelectorAll('.page-section').forEach(p => {
-    p.classList.remove('active', 'entering', 'leaving');
-    p.style.cssText = '';
-  });
-
-  // Sekarang panggil switchPage normal — akan masuk karena currentPage !== 'dashboard'
-  switchPage('dashboard');
+/* ─── RINGKASAN DI KARTU MENU ─── */
+function renderHubs() {
+    const setT = (id, t) => { const el = document.getElementById(id); if (el) el.innerText = t; };
+    setT('hubSub_service', dbData.armada.filter(a => _unitVisibleForRole(a)).length + ' unit');
+    const vis = dbData.rentals.filter(r => _rentalVisibleForRole(r));
+    setT('hubSub_history', vis.length + ' data');
+    const unpaid = vis.filter(r => !r.payment).length;
+    setT('hubSub_payment', unpaid ? unpaid + ' belum bayar' : 'Semua lunas');
 }
 
-function displayServiceList(alerts){
-    serviceData=alerts||[];
-    const list=document.getElementById('serviceList');
-    if(!dbData.armada.length){list.innerHTML=`<div class="text-center py-8" style="color:var(--ad-muted);">Tidak ada data armada</div>`;return;}
-    const activeNopols=new Set(dbData.rentals.filter(r=>r.status!=='Selesai').map(r=>r.nopol));
-    const serviceMap={};serviceData.forEach(s=>serviceMap[s.nopol]=s);
-    const visibleArmada = dbData.armada.filter(a => _unitVisibleForRole(a));
-    const grouped = [
-        {label:'Internal', units: visibleArmada.filter(a => (a.statusUnit||'').toLowerCase() !== 'external')},
-        {label:'External', units: visibleArmada.filter(a => (a.statusUnit||'').toLowerCase() === 'external')}
-      ];
-    let html='';
-    grouped.forEach(g=>{
-        if(!g.units.length)return;
-        html+=`<p class="section-type-label"><span>${g.label}</span></p>`;
-        g.units.forEach((a,i)=>{
-            const svc=serviceMap[a.nopol]||{};
-            const isRented=activeNopols.has(a.nopol);
-            const isBadSvc=svc.status==='butuh_service', isWarnSvc=svc.status==='belum_service';
-            const isExt=g.label==='External';
-            const accentC=isExt?'#4A80E0':'var(--ad-gold)';
-            const activeRental=dbData.rentals.find(r=>r.nopol===a.nopol&&r.status!=='Selesai');
-            const totalRental=dbData.rentals.filter(r=>r.nopol===a.nopol).length;
-            const statusBadge=isRented?`<span class="badge" style="background:${isExt?'rgba(111,160,255,0.12)':'rgba(201,168,76,0.12)'};color:${accentC};">DIRENTAL</span>`:`<span class="badge badge-dim">TERSEDIA</span>`;
-            const svcBadge=isBadSvc?`<span class="badge ml-1" style="background:rgba(200,50,50,0.1);color:#cc6666;">SERVICE</span>`:isWarnSvc?`<span class="badge ml-1 badge-gold">CEK</span>`:'';
-            const svcColor=isBadSvc?'#cc4444':isWarnSvc?'#A07830':'var(--ad-gold)';
-            const svcIcon=isBadSvc?'fa-wrench':isWarnSvc?'fa-triangle-exclamation':'fa-wrench';
-            const rentalInfo=activeRental
-                ?`<p class="text-xs mt-1.5 font-bold" style="color:${accentC};"><i class="fa-solid fa-user mr-1"></i>${activeRental.peminjam} · s/d ${formatTanggal(activeRental.finish)}</p>`
-                :`<p class="text-xs mt-1.5" style="color:var(--ad-muted);"><i class="fa-solid fa-history mr-1"></i>${totalRental} kali rental</p>`;
-            const lastServiceTxt = svc.lastService ? formatTanggal(svc.lastService) : 'Belum pernah';
-            const role = currentUser?.role || '';
-const editUnitBtn = role === 'management'
-    ? `<button onclick="event.stopPropagation();openEditUnitModal('${a.nopol}')"
-            style="display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;border:1px solid var(--ad-border);background:rgba(201,168,76,0.08);color:var(--ad-gold);cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;">
-            <i class="fa-solid fa-pen" style="font-size:11px;"></i>Edit Unit
-       </button>`
-    : '';
+/* ─── HALAMAN UNIT ─── */
+function renderUnitList() {
+    const list = document.getElementById('unitList');
+    if (!list) return;
+    const visible = dbData.armada.filter(a => _unitVisibleForRole(a));
+    if (!visible.length) {
+        list.innerHTML = '<div class="text-center py-8" style="color:var(--ad-muted);">Tidak ada data armada</div>';
+        return;
+    }
+    const role = currentUser?.role || '';
+    const activeNopols = new Set(dbData.rentals.filter(r => r.status !== 'Selesai').map(r => r.nopol));
+    const rentedCount = visible.filter(a => activeNopols.has(a.nopol)).length;
+    const freeCount = visible.length - rentedCount;
+    const pctR = Math.round(rentedCount / visible.length * 100);
 
-const deleteUnitBtn = role === 'management'
-    ? `<button onclick="event.stopPropagation();openDeleteKendaraanModal('${a.nopol}','${(a.mobil||'').replace(/'/g,"\\'")}',${isRented})"
-            style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(220,50,50,0.2);background:rgba(220,50,50,0.06);color:#cc4444;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <i class="fa-solid fa-trash" style="font-size:12px;"></i>
-       </button>`
-    : '';html += `
-<div class="rounded-2xl p-4 stagger-item" style="background:var(--ad-dark3);border:1px solid rgba(0,0,0,0.05);border-left:3px solid ${accentC};animation-delay:${0.05 * i}s">
-    <div class="flex justify-between items-start">
-        <div class="flex-1 min-w-0" onclick="openUnitHistoryModal('${a.nopol}')" style="cursor:pointer;">
-            <div class="flex items-center gap-1.5 flex-wrap mb-1">
-                <span class="font-black text-base" style="color:#1A1A1A;">${a.nopol}</span>
-                ${statusBadge}
-                ${svcBadge}
-            </div>
-            <p class="text-sm" style="color:var(--ad-muted);">${a.mobil || '—'}</p>
-            <p class="text-xs mt-0.5" style="color:var(--ad-muted);">
-                <i class="fa-solid fa-wrench mr-1"></i>Service: ${lastServiceTxt}
-            </p>
-            ${a.driver ? `<p class="text-xs mt-0.5" style="color:var(--ad-muted);"><i class="fa-solid fa-id-badge mr-1"></i>Driver: ${a.driver}</p>` : ''}
-            ${rentalInfo}
-        </div>
-        <div class="flex flex-col items-end gap-2 ml-2 flex-shrink-0">
-            ${editUnitBtn}
-            ${deleteUnitBtn}
-            <i class="fa-solid fa-chevron-right" style="color:rgba(0,0,0,0.12);font-size:12px;" onclick="openUnitHistoryModal('${a.nopol}')"></i>
-        </div>
-    </div>
-</div>`;
+    let html = '<div class="glass-card" style="margin-bottom:14px;">' +
+        '<div class="flex justify-between items-end mb-2"><div><p class="sec-title">Ringkasan Unit</p>' +
+        '<p style="font-size:12px;color:var(--ad-muted);margin-top:2px;">' + visible.length + ' unit terdaftar</p></div>' +
+        '<p style="font-size:24px;font-weight:700;color:#17140D;">' + pctR + '<span style="font-size:12px;color:var(--ad-muted);">% terpakai</span></p></div>' +
+        '<div class="seg-bar"><span style="width:' + pctR + '%;background:linear-gradient(90deg,#C8960C,#e5b874)"></span></div>' +
+        '<div class="flex justify-between mt-2" style="font-size:11px;color:var(--ad-muted);">' +
+        '<span><b style="color:#8A5E08;">' + rentedCount + '</b> dirental</span><span><b style="color:#16a34a;">' + freeCount + '</b> tersedia</span></div></div>';
+
+    const groups = [
+        { label:'Internal', units: visible.filter(a => (a.statusUnit||'').toLowerCase() !== 'external') },
+        { label:'External', units: visible.filter(a => (a.statusUnit||'').toLowerCase() === 'external') }
+    ];
+    groups.forEach(g => {
+        if (!g.units.length) return;
+        html += '<p class="section-type-label"><span>' + g.label + '</span></p>';
+        g.units.forEach((a, i) => {
+            const isExt = g.label === 'External';
+            const isRented = activeNopols.has(a.nopol);
+            const accentC = isExt ? '#4A80E0' : 'var(--ad-gold)';
+            const activeRental = dbData.rentals.find(r => r.nopol === a.nopol && r.status !== 'Selesai');
+            const totalRental = dbData.rentals.filter(r => r.nopol === a.nopol).length;
+            const statusBadge = isRented
+                ? '<span class="badge" style="background:' + (isExt ? 'rgba(111,160,255,0.14)' : 'rgba(201,168,76,0.16)') + ';color:' + accentC + ';">DIRENTAL</span>'
+                : '<span class="badge badge-green">TERSEDIA</span>';
+            const rentalInfo = activeRental
+                ? '<p class="text-xs mt-1.5 font-bold" style="color:' + accentC + ';"><i class="fa-solid fa-user mr-1"></i>' + activeRental.peminjam + ' · s/d ' + formatTanggal(activeRental.finish) + '</p>'
+                : '<p class="text-xs mt-1.5" style="color:var(--ad-muted);"><i class="fa-solid fa-clock-rotate-left mr-1"></i>' + totalRental + ' kali rental</p>';
+            const editBtn = role === 'management'
+                ? '<button onclick="event.stopPropagation();openEditUnitModal(\'' + a.nopol + '\')" style="display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;border:1px solid var(--ad-border);background:rgba(201,168,76,0.08);color:var(--ad-gold);cursor:pointer;font-size:11px;font-weight:700;"><i class="fa-solid fa-pen" style="font-size:11px;"></i>Edit</button>' : '';
+            const delBtn = role === 'management'
+                ? '<button onclick="event.stopPropagation();openDeleteKendaraanModal(\'' + a.nopol + '\',\'' + (a.mobil||'').replace(/'/g,"\\'") + '\',' + isRented + ')" style="width:32px;height:32px;border-radius:10px;border:1px solid rgba(220,50,50,0.2);background:rgba(220,50,50,0.06);color:#cc4444;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-trash" style="font-size:12px;"></i></button>' : '';
+
+            html += '<div class="rounded-2xl p-4 stagger-item" style="background:var(--ad-dark3);border:1px solid rgba(0,0,0,0.05);border-left:3px solid ' + accentC + ';animation-delay:' + (0.04 * i) + 's">' +
+                '<div class="flex justify-between items-start">' +
+                '<div class="flex-1 min-w-0" onclick="openUnitHistoryModal(\'' + a.nopol + '\')" style="cursor:pointer;">' +
+                '<div class="flex items-center gap-1.5 flex-wrap mb-1"><span class="font-black text-base" style="color:#1A1A1A;">' + a.nopol + '</span>' + statusBadge + '</div>' +
+                '<p class="text-sm" style="color:var(--ad-muted);">' + (a.mobil || '—') + '</p>' +
+                (a.driver ? '<p class="text-xs mt-0.5" style="color:var(--ad-muted);"><i class="fa-solid fa-id-badge mr-1"></i>Driver: ' + a.driver + '</p>' : '') +
+                rentalInfo + '</div>' +
+                '<div class="flex flex-col items-end gap-2 ml-2 flex-shrink-0">' + editBtn + delBtn +
+                '<i class="fa-solid fa-chevron-right" style="color:rgba(0,0,0,0.15);font-size:12px;" onclick="openUnitHistoryModal(\'' + a.nopol + '\')"></i></div>' +
+                '</div></div>';
         });
     });
-    list.innerHTML=html;
+    list.innerHTML = html;
 }
 
-/* ─── SERVICE MODAL ─── */
-function openServiceModalByNopol(nopol){
-    const svc=serviceData.find(s=>s.nopol===nopol)||{};
-    const armada=dbData.armada.find(a=>a.nopol===nopol)||{};
-    document.getElementById('serviceNopol').value=nopol;
-    document.getElementById('serviceNopolDisplay').innerText=nopol;
-    document.getElementById('serviceMobilDisplay').innerText=armada.mobil||'—';
-    document.getElementById('serviceLastDisplay').innerText=svc.lastService?formatTanggal(svc.lastService):'Belum pernah service';
-    document.getElementById('serviceNewDate').valueAsDate=new Date();
-    document.getElementById('serviceKeterangan').value='';
-    document.getElementById('modalServiceUpdate').classList.remove('hidden');
-}
-function closeServiceModal(){document.getElementById('modalServiceUpdate').classList.add('hidden');}
-function updateServiceRecord(){
-    const nopol=document.getElementById('serviceNopol').value;
-    const newDate=document.getElementById('serviceNewDate').value;
-    if(!newDate)return alert('Pilih tanggal service baru');
-    const btn=document.getElementById('btnUpdateService');
-    btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-1"></i>Menyimpan...';
-    google.script.run
-        .withSuccessHandler(()=>{
-            btn.disabled=false;
-            btn.innerHTML='<i class="fa-solid fa-wrench mr-1"></i>UPDATE SERVICE';
-            closeServiceModal();
-            google.script.run
-                .withSuccessHandler(function(alerts){
-                    serviceData = alerts || [];
-                    displayServiceList(serviceData);
-                })
-                .withFailureHandler(function(){
-                    displayServiceList(serviceData);
-                })
-                .getServiceAlerts();
-            showToastSuccess('Service '+nopol+' berhasil diupdate!');
-        })
-        .withFailureHandler(err=>{
-            btn.disabled=false;
-            btn.innerHTML='<i class="fa-solid fa-wrench mr-1"></i>UPDATE SERVICE';
-            alert('Error: '+err.message);
-        })
-        .updateServiceDate(nopol,newDate);
-}
 /* ─── EDIT UNIT KENDARAAN ─── */
 function openEditUnitModal(nopol) {
     const a = dbData.armada.find(x => x.nopol === nopol);
@@ -3441,12 +3495,12 @@ function submitEditUnit() {
 
     const btn = document.getElementById('btnSubmitEditUnit');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
 
     google.script.run
         .withSuccessHandler(function() {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN PERUBAHAN';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE PERUBAHAN';
             closeEditUnitModal();
 
             // Update data lokal supaya tidak perlu reload penuh
@@ -3462,13 +3516,13 @@ function submitEditUnit() {
             initDropdowns();
             renderDashboard();
             loadTimelineChart();
-            displayServiceList(serviceData);
+            renderUnitList();
             showToastSuccess('Unit ' + nopol + ' berhasil diperbarui!');
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN PERUBAHAN';
-            alert('Gagal menyimpan: ' + (err.message || err));
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE PERUBAHAN';
+            alert('Gagal Upload: ' + (err.message || err));
         })
         .updateKendaraan({ originalNopol, nopol, mobil, status: status.toUpperCase(), harga, akun });
 }
@@ -3584,23 +3638,23 @@ function submitAddKendaraan() {
   
   const btn = document.getElementById('btnAddKendaraan');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
   
   google.script.run
     .withSuccessHandler(() => {
       btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i>SIMPAN KENDARAAN';
+      btn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i>SAVE KENDARAAN';
       closeAddKendaraanModal();
       dbData.armada.push({ nopol, mobil, statusUnit: status.toUpperCase(), harga, driver, lastService: '', akun });
       initDropdowns();
       renderDashboard();
       loadTimelineChart();
-      displayServiceList(serviceData);
+      renderUnitList();
       showToastSuccess(`Kendaraan ${nopol} berhasil ditambahkan!`);
     })
     .withFailureHandler(err => {
       btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i>SIMPAN KENDARAAN';
+      btn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i>SAVE KENDARAAN';
       alert('Gagal: ' + err.message);
     })
     .addKendaraan({ nopol, mobil, status: status.toUpperCase(), harga, driver, akun });  // ← tambahkan akun
@@ -3617,7 +3671,7 @@ function confirmDeleteKendaraan(){
     if(!deleteTargetNopol)return;
     const btn=document.getElementById('btnConfirmDelete'); btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-1"></i>Menghapus...';
     google.script.run
-        .withSuccessHandler(()=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-trash mr-1"></i>Hapus';const nopol=deleteTargetNopol;closeDeleteKendaraanModal();dbData.armada=dbData.armada.filter(a=>a.nopol!==nopol);initDropdowns();renderDashboard();loadTimelineChart();displayServiceList(serviceData);showToastSuccess(`Kendaraan ${nopol} dihapus.`);})
+        .withSuccessHandler(()=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-trash mr-1"></i>Hapus';const nopol=deleteTargetNopol;closeDeleteKendaraanModal();dbData.armada=dbData.armada.filter(a=>a.nopol!==nopol);initDropdowns();renderDashboard();loadTimelineChart();renderUnitList();showToastSuccess(`Kendaraan ${nopol} dihapus.`);})
         .withFailureHandler(err=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-trash mr-1"></i>Hapus';alert('Gagal: '+err.message);})
         .deleteKendaraan(deleteTargetNopol);
 }
@@ -3659,7 +3713,7 @@ function openRentalForm(editId) {
 
     // Label tombol
     const lblEl = document.getElementById('btnSubmitRentalLabel');
-    if (lblEl) lblEl.innerText = isEdit ? 'UPDATE PESANAN' : 'SIMPAN PESANAN';
+    if (lblEl) lblEl.innerText = isEdit ? 'UPDATE PESANAN' : 'SAVE PESANAN';
 
     // Reset tipe sewa tombol
     ['btnTipeUnitOnly','btnTipeIncludeDriver'].forEach(id => {
@@ -3747,17 +3801,17 @@ function submitRental() {
     if (!finalTipeSewa) return alert('Pilih tipe layanan (Unit Only / Include Driver)');
 
     const btn = document.getElementById('btnSubmitRental');
-    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...'; }
 
     google.script.run
         .withSuccessHandler(() => {
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>' + (isEdit ? 'UPDATE PESANAN' : 'SIMPAN PESANAN'); }
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>' + (isEdit ? 'UPDATE PESANAN' : 'SAVE PESANAN'); }
             closeModal('modalRental');
             google.script.run.withSuccessHandler(onDataLoaded).getInitialData();
             showToastSuccess(isEdit ? 'Rental berhasil diupdate!' : 'Rental baru berhasil disimpan!');
         })
         .withFailureHandler(err => {
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>' + (isEdit ? 'UPDATE PESANAN' : 'SIMPAN PESANAN'); }
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>' + (isEdit ? 'UPDATE PESANAN' : 'SAVE PESANAN'); }
             alert('Gagal: ' + err.message);
         })
         .saveRentalData({ peminjam, nopol, start, finish, tipeSewa: finalTipeSewa, hargaBooking, rute, editId: editId || null });
@@ -3860,7 +3914,7 @@ function onFotoSelected(e){
 }
 function resetFoto(){fotoBase64=null;fotoMime=null;fotoDataURL=null;document.getElementById('vFotoInput').value='';document.getElementById('uploadBox').classList.remove('has-file');document.getElementById('uploadLabel').innerText='Tap untuk foto / pilih file';document.getElementById('uploadIcon').className='fa-solid fa-camera-retro text-3xl mb-2 block';document.getElementById('uploadIcon').style.color='rgba(0,0,0,0.12)';const prev=document.getElementById('fotoPreview');prev.src='';prev.style.display='none';prev.classList.add('hidden');}
 function initSigCanvas(){const canvas=document.getElementById('sigCanvas');const rect=canvas.getBoundingClientRect();canvas.width=rect.width*window.devicePixelRatio;canvas.height=rect.height*window.devicePixelRatio;const ctx=canvas.getContext('2d');ctx.scale(window.devicePixelRatio,window.devicePixelRatio);ctx.strokeStyle='#C9A84C';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';function pos(e){const r=canvas.getBoundingClientRect(),src=e.touches?e.touches[0]:e;return{x:src.clientX-r.left,y:src.clientY-r.top};}canvas.onmousedown=canvas.ontouchstart=e=>{e.preventDefault();sigDrawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);};canvas.onmousemove=canvas.ontouchmove=e=>{e.preventDefault();if(!sigDrawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();setSigned(true);};canvas.onmouseup=canvas.ontouchend=()=>{sigDrawing=false;};canvas.onmouseleave=()=>{sigDrawing=false;};}
-function setSigned(v){sigHasData=v;document.getElementById('sigCanvas').classList.toggle('signed',v);const hint=document.getElementById('sigHint');hint.innerText=v?'Paraf tersimpan':'Belum ada paraf';hint.style.color=v?'var(--ad-gold)':'var(--ad-muted)';hint.style.fontWeight=v?'700':'400';}
+function setSigned(v){sigHasData=v;document.getElementById('sigCanvas').classList.toggle('signed',v);const hint=document.getElementById('sigHint');hint.innerText=v?'Paraf terSAVE':'Belum ada paraf';hint.style.color=v?'var(--ad-gold)':'var(--ad-muted)';hint.style.fontWeight=v?'700':'400';}
 function clearSignature(){const c=document.getElementById('sigCanvas');const ctx=c.getContext('2d');if(ctx)ctx.clearRect(0,0,c.width,c.height);setSigned(false);}
 function getSigDataURL(){if(!sigHasData)return null;return document.getElementById('sigCanvas').toDataURL('image/png');}
 function submitVerify(){
@@ -3869,8 +3923,8 @@ function submitVerify(){
     if(!diterima)return alert('Isi Diterima Oleh terlebih dahulu');
     const sigDataURL=getSigDataURL();
     const btn=document.querySelector('#modalVerify .btn-primary');
-    btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
-    google.script.run.withSuccessHandler(result=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-circle-check mr-2"></i>SIMPAN VERIFIKASI';closeVerifyModal();google.script.run.withSuccessHandler(onDataLoaded).getInitialData();openReviewFromResult({rental:verifyRentalData,verifiedBy,diterima,fotoUrl:result.fotoUrl||null,sigUrl:result.sigUrl||null,fotoDataURL,sigDataURL});}).withFailureHandler(err=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-circle-check mr-2"></i>SIMPAN VERIFIKASI';alert('Gagal: '+err.message);}).saveVerification({rentalId:verifyRowIndex,verifiedBy,diterima,fotoBase64,fotoMime,sigDataURL});
+    btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
+    google.script.run.withSuccessHandler(result=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-circle-check mr-2"></i>SAVE VERIFIKASI';closeVerifyModal();google.script.run.withSuccessHandler(onDataLoaded).getInitialData();openReviewFromResult({rental:verifyRentalData,verifiedBy,diterima,fotoUrl:result.fotoUrl||null,sigUrl:result.sigUrl||null,fotoDataURL,sigDataURL});}).withFailureHandler(err=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-circle-check mr-2"></i>SAVE VERIFIKASI';alert('Gagal: '+err.message);}).saveVerification({rentalId:verifyRowIndex,verifiedBy,diterima,fotoBase64,fotoMime,sigDataURL});
 }
 
 /* ─── REVIEW ─── */
@@ -4415,7 +4469,7 @@ function _onTanggalChange() {
         document.getElementById('tsCatatan').value = '';
         document.getElementById('tsDurasiPreview').classList.add('hidden');
         document.getElementById('btnSaveTs').innerHTML =
-            '<i class="fa-solid fa-floppy-disk"></i> SIMPAN TIMESHEET';
+            '<i class="fa-solid fa-floppy-disk"></i> SAVE TIMESHEET';
         document.getElementById('tsTanggalInfo').classList.add('hidden');
         // Reset foto
         _resetTsFoto('mulai'); _resetTsFoto('kmawal');
@@ -4473,7 +4527,7 @@ function openTimesheetModal(id) {
     sel.innerHTML = '<option value="">Memuat...</option>';
     sel.disabled = true;
     document.getElementById('btnSaveTs').innerHTML =
-        '<i class="fa-solid fa-floppy-disk"></i> SIMPAN TIMESHEET';
+        '<i class="fa-solid fa-floppy-disk"></i> SAVE TIMESHEET';
 
     document.getElementById('modalTimesheet').classList.remove('hidden');
 
@@ -4685,7 +4739,7 @@ function submitTimesheet() {
  
     const btn = document.getElementById('btnSaveTs');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i> Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i> Uploading...';
  
     const payload = {
         rentalId:  tsRentalId,
@@ -4703,7 +4757,7 @@ function submitTimesheet() {
         .withSuccessHandler(function() {
             const isEdit = !!tsEditRowIndex;
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> SIMPAN TIMESHEET';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> SAVE TIMESHEET';
             document.getElementById('tsCatatan').value = '';
             _resetTsFoto('mulai'); _resetTsFoto('kmawal');
             _resetTsFoto('selesai'); _resetTsFoto('kmselesai');
@@ -4715,8 +4769,8 @@ function submitTimesheet() {
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> SIMPAN TIMESHEET';
-            alert('Gagal simpan: ' + err.message);
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> SAVE TIMESHEET';
+            alert('Gagal uploading: ' + err.message);
         })
         .saveTimesheet(payload);
 }
@@ -4855,7 +4909,7 @@ function renderPaymentTab() {
                         <i class="fa-solid fa-pen" style="font-size:10px;"></i>
                     </button>
                     ${(currentUser?.role==='finance'||currentUser?.role==='management')
-                        ? `<button onclick="event.stopPropagation();exportInvoicePDF(${r.id})" title="Cetak Invoice" style="width:26px;height:26px;border-radius:6px;border:none;background:rgba(201,168,76,0.12);color:#8A5E08;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-file-invoice" style="font-size:10px;"></i></button>`
+                        ? `<button onclick="event.stopPropagation();exportInvoicePDF(${r.id})" title="Print Invoice" style="width:26px;height:26px;border-radius:6px;border:none;background:rgba(201,168,76,0.12);color:#8A5E08;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-file-invoice" style="font-size:10px;"></i></button>`
                         : ''}
                     <button onclick="event.stopPropagation();confirmDeletePayment(${r.id},'${(r.peminjam||'').replace(/'/g,"\\'")}','${r.nopol}')" title="Hapus pembayaran" style="width:26px;height:26px;border-radius:6px;border:none;background:rgba(220,50,50,0.08);color:#cc4444;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">
                         <i class="fa-solid fa-trash" style="font-size:10px;"></i>
@@ -4992,15 +5046,15 @@ function submitPayment() {
     if(!jumlah) return alert('Masukkan jumlah pembayaran');
     if((tipe==='DP'||tipe==='PARSIAL')&&!hariDP) return alert('Masukkan berapa hari yang dibayar');
     const btn=document.getElementById('btnSubmitPayment');
-    btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
     google.script.run
         .withSuccessHandler(()=>{
-            btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN PEMBAYARAN';
+            btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE PEMBAYARAN';
             closePaymentModal();
             google.script.run.withSuccessHandler(onDataLoaded).getInitialData();
             showToastSuccess('Pembayaran '+tipe+' berhasil disimpan!');
         })
-        .withFailureHandler(err=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN PEMBAYARAN';alert('Gagal: '+err.message);})
+        .withFailureHandler(err=>{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE PEMBAYARAN';alert('Gagal: '+err.message);})
         .savePayment({rentalId:currentPaymentRentalId,tipe,jumlah:Number(jumlah),hariDP,catatan,buktiBase64:paymentBase64,buktiMime:paymentMime});
 }
 
@@ -5484,10 +5538,10 @@ function _setSpjEditMode(isEdit) {
     const title = document.querySelector('#modalSPJ .font-display');
     if (btnSave)  btnSave.innerHTML  = isEdit
         ? '<i class="fa-solid fa-pen mr-2"></i>Update'
-        : '<i class="fa-solid fa-floppy-disk mr-2"></i>Simpan';
+        : '<i class="fa-solid fa-floppy-disk mr-2"></i>Save';
     if (btnPrint) btnPrint.innerHTML = isEdit
         ? '<i class="fa-solid fa-print mr-2"></i>Print Ulang'
-        : '<i class="fa-solid fa-print mr-2"></i>Cetak SPJ';
+        : '<i class="fa-solid fa-print mr-2"></i>Print SPJ';
     if (title) title.innerText = isEdit ? 'Edit Surat Perintah Jalan' : 'Surat Perintah Jalan';
 }
 
@@ -5574,12 +5628,12 @@ function saveSPJData() {
     const data = _getSpjFormData();
     const btn = document.getElementById('btnSaveSPJ');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
 
     google.script.run
         .withSuccessHandler(function(res) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Simpan';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Save';
             if (res.noSPJ) document.getElementById('spjNoSurat').value = res.noSPJ;
             showToastSuccess('SPJ ' + res.noSPJ + ' berhasil disimpan!');
             const r = dbData.rentals.find(x => x.id == spjRentalId);
@@ -5587,8 +5641,8 @@ function saveSPJData() {
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Simpan';
-            alert('Gagal simpan: ' + err.message);
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Save';
+            alert('Gagal uploading: ' + err.message);
         })
         .saveSPJ({ rentalId: spjRentalId, spjData: data });
 }
@@ -5597,12 +5651,12 @@ function printSPJ() {
     const r = spjRentalData;
     if (!r) return;
     const data = _getSpjFormData();
-    if (!data.spjDriver) return alert('Nama pengemudi wajib diisi sebelum cetak');
+    if (!data.spjDriver) return alert('Nama pengemudi wajib diisi sebelum Print');
 
     const btnPrint = document.getElementById('btnPrintSPJ');
     if (btnPrint) {
         btnPrint.disabled = true;
-        btnPrint.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Membuat PDF...';
+        btnPrint.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Preparing PDF...';
     }
 
     google.script.run
@@ -5616,16 +5670,16 @@ function printSPJ() {
                 .withSuccessHandler(function(res) {
                     if (btnPrint) {
                         btnPrint.disabled = false;
-                        btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak SPJ';
+                        btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>print SPJ';
                     }
-                    if (!res || !res.pdfBase64) return alert('Gagal membuat PDF. Coba lagi.');
+                    if (!res || !res.pdfBase64) return alert('Gagal Preparing PDF. Coba lagi.');
                     const pdfFileName = 'SPJ_' + res.noSPJ.replace(/\//g, '_') + '.pdf';
                     _downloadPDF(res.pdfBase64, pdfFileName);
                 })
                 .withFailureHandler(function(err) {
                     if (btnPrint) {
                         btnPrint.disabled = false;
-                        btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak SPJ';
+                        btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Print SPJ';
                     }
                     alert('Gagal buat PDF: ' + (err.message || err));
                 })
@@ -5634,9 +5688,9 @@ function printSPJ() {
         .withFailureHandler(function(err) {
             if (btnPrint) {
                 btnPrint.disabled = false;
-                btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak SPJ';
+                btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Print SPJ';
             }
-            alert('Gagal simpan: ' + (err.message || err));
+            alert('Gagal uploading: ' + (err.message || err));
         })
         .saveSPJ({ rentalId: spjRentalId, spjData: data });
 }
@@ -5882,16 +5936,16 @@ function saveChecklistOnly() {
     if (!data.peminjam) return alert('Data penyewa tidak boleh kosong');
     const btn = document.getElementById('btnSaveChecklist');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
     google.script.run
         .withSuccessHandler(function() {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Simpan';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Save';
             showToastSuccess('Checklist ' + (data.nopol||'') + ' berhasil disimpan!');
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Simpan';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>Save';
             alert('Gagal: ' + err.message);
         })
         .saveChecklist(data);
@@ -5901,27 +5955,27 @@ function printChecklistPDF() {
     const data = _getChecklistData();
     if (!data.peminjam) return alert('Data penyewa tidak boleh kosong');
     const btnPrint = document.getElementById('btnPrintChecklist');
-    if (btnPrint) { btnPrint.disabled = true; btnPrint.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Membuat PDF...'; }
+    if (btnPrint) { btnPrint.disabled = true; btnPrint.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Preparing PDF...'; }
 
-    // Simpan dulu ke sheet, lalu cetak
+    // Simpan dulu ke sheet, lalu Print
     google.script.run
         .withSuccessHandler(function() {
             google.script.run
                 .withSuccessHandler(function(res) {
-                    if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak PDF'; }
-                    if (!res || !res.pdfBase64) return alert('Gagal membuat PDF. Pastikan sheet "CHECKLIST Template" sudah dibuat.');
+                    if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Print PDF'; }
+                    if (!res || !res.pdfBase64) return alert('Gagal Preparing PDF. Pastikan sheet "CHECKLIST Template" sudah dibuat.');
                     _downloadPDF(res.pdfBase64, 'Checklist_' + (data.nopol||'unit') + '_' + (data.tglSewa||'') + '.pdf');
                     showToastSuccess('PDF Checklist berhasil dibuat!');
                 })
                 .withFailureHandler(function(err) {
-                    if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak PDF'; }
-                    alert('Gagal cetak: ' + (err.message || err));
+                    if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Print PDF'; }
+                    alert('Gagal Print: ' + (err.message || err));
                 })
                 .printChecklistAsPDF({ checklistData: data });
         })
         .withFailureHandler(function(err) {
-            if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Cetak PDF'; }
-            alert('Gagal simpan: ' + err.message);
+            if (btnPrint) { btnPrint.disabled = false; btnPrint.innerHTML = '<i class="fa-solid fa-print mr-2"></i>Print PDF'; }
+            alert('Gagal uploading: ' + err.message);
         })
         .saveChecklist(data);
 }
@@ -5931,9 +5985,9 @@ function _downloadPDF(base64Data, fileName) {
     if (typeof AndroidBridge !== 'undefined' && typeof AndroidBridge.savePDF === 'function') {
         try {
             AndroidBridge.savePDF(base64Data, fileName);
-            showToastSuccess(fileName + ' berhasil diunduh!');
+            showToastSuccess(fileName + ' berhasil di-Download!');
         } catch(e) {
-            showToastSuccess('Gagal simpan via Android: ' + e.message);
+            showToastSuccess('Gagal uploading via Android: ' + e.message);
         }
         return;
     }
@@ -6181,7 +6235,7 @@ function submitBops() {
  
     const btn = document.getElementById('btnSubmitBops');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
  
     const payload = { tipe, tanggal, deskripsi, jumlah, kategori, catatan };
     if (editId) payload.id = editId;
@@ -6189,14 +6243,14 @@ function submitBops() {
     google.script.run
         .withSuccessHandler(function() {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE';
             closeBopsForm();
             loadBopsPage();
             showToastSuccess((editId ? 'Transaksi diperbarui' : 'Transaksi berhasil dicatat') + '!');
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE';
             alert('Gagal: ' + err.message);
         })
         .saveBopsData(payload);
@@ -6251,18 +6305,18 @@ function exportBopsPDF() {
         rows        : sorted,
     };
  
-    _showPdfLoadingModal('Membuat Laporan BOPS ' + periodeLabel + '…');
+    _showPdfLoadingModal('Preparing Laporan BOPS ' + periodeLabel + '…');
  
     google.script.run
         .withSuccessHandler(function(res) {
             _closePdfLoadingModal();
             if (!res || !res.pdfBase64) {
-                alert('Gagal membuat PDF BOPS. Pastikan fungsi printBopsAsPDF sudah ada di Apps Script.');
+                alert('Gagal Preparing PDF BOPS. Pastikan fungsi printBopsAsPDF sudah ada di Apps Script.');
                 return;
             }
             const fileName = 'BOPS_' + periodeLabel.replace(/\s/g, '_') + '.pdf';
             _downloadPDF(res.pdfBase64, fileName);
-            showToastSuccess('Laporan BOPS ' + periodeLabel + ' berhasil diunduh!');
+            showToastSuccess('Laporan BOPS ' + periodeLabel + ' berhasil di-Download!');
         })
         .withFailureHandler(function(err) {
             _closePdfLoadingModal();
@@ -6324,7 +6378,7 @@ function _downloadPDF(base64Data, fileName) {
         setTimeout(() => URL.revokeObjectURL(url), 5000);
     } catch(e) {
         console.error('_downloadPDF error:', e);
-        alert('Gagal mengunduh PDF: ' + e.message);
+        alert('Gagal Downloading PDF: ' + e.message);
     }
 }
 
@@ -6554,7 +6608,7 @@ function submitCostDriver() {
 
     const btn = document.getElementById('btnSubmitCostDriver');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Menyimpan...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Uploading...';
 
     const payload = {
         tanggal, driver, nopol, deskripsi, nominal,
@@ -6566,14 +6620,14 @@ function submitCostDriver() {
     google.script.run
         .withSuccessHandler(function() {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE';
             closeCostDriverForm();
             loadCostDriverPage();
             showToastSuccess((editId ? 'Pengeluaran diperbarui' : 'Pengeluaran berhasil dicatat') + '!');
         })
         .withFailureHandler(function(err) {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SIMPAN';
+            btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i>SAVE';
             alert('Gagal: ' + err.message);
         })
         .saveCostDriver(payload);
